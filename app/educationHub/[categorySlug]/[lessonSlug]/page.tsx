@@ -59,7 +59,11 @@ interface PageProps {
   }
 }
 
-const LessonPage: React.FC<PageProps> = async ({ params }) => {
+async function LessonPageContent({
+  params,
+}: {
+  params: { categorySlug: string; lessonSlug: string }
+}) {
   const { categorySlug, lessonSlug } = params
 
   // --- DEBUGGING LOGS ---
@@ -71,7 +75,6 @@ const LessonPage: React.FC<PageProps> = async ({ params }) => {
     categorySlug,
   })
   console.log('[LessonPage] Fetched lesson data:', lesson);
-
 
   if (!lesson) {
     notFound()
@@ -89,7 +92,7 @@ const LessonPage: React.FC<PageProps> = async ({ params }) => {
       {navigationData && <TopNavigation data={navigationData} />}
       <main className="relative flex-grow pt-32 pb-24">
         <div className="max-w-4xl mx-auto px-4">
-          <Link href={`/educationHub/${categorySlug}`} className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-8">
+          <Link href={`/educationHub/${params.categorySlug}`} className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-8">
             <ArrowLeftIcon className="h-5 w-5" />
             Back to Lessons
           </Link>
@@ -108,4 +111,10 @@ const LessonPage: React.FC<PageProps> = async ({ params }) => {
   )
 }
 
-export default LessonPage
+export default function Page({
+  params,
+}: {
+  params: { categorySlug: string; lessonSlug: string }
+}) {
+  return <LessonPageContent params={params} />
+}
