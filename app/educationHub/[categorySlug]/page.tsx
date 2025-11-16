@@ -31,14 +31,8 @@ const lessonsQuery = groq`*[_type == "educationLesson" && category->slug.current
 const navigationQuery = groq`*[_type == "navigation"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`
 
-interface PageProps {
-  params: {
-    categorySlug: string
-  }
-}
-
-export default async function CategoryLessonsPage({ params }: PageProps) {
-  const { categorySlug } = await params
+export default async function CategoryLessonsPage({ params }: any) {
+  const { categorySlug } = params
 
   // Fetch all necessary data in parallel
   const [category, lessons, navigationData, footerData] = await Promise.all([
@@ -69,7 +63,7 @@ export default async function CategoryLessonsPage({ params }: PageProps) {
           <p className="mt-4 text-lg text-gray-600 text-center">Select a lesson to begin.</p>
 
           <div className="mt-16 flex flex-col items-center gap-6">
-            {lessons?.map((lesson: EducationLesson) => (
+            {lessons?.map((lesson) => (
               <Link
                 key={lesson._id}
                 href={`/educationHub/${categorySlug}/${lesson.slug.current}`}
