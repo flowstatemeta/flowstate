@@ -69,7 +69,7 @@ export default async function CategoryLessonsPage({ params }: PageProps) {
           <p className="mt-4 text-lg text-gray-600 text-center">Select a lesson to begin.</p>
 
           <div className="mt-16 flex flex-col items-center gap-6">
-            {lessons?.map((lesson) => (
+            {lessons?.map((lesson: EducationLesson) => (
               <Link
                 key={lesson._id}
                 href={`/educationHub/${categorySlug}/${lesson.slug.current}`}
