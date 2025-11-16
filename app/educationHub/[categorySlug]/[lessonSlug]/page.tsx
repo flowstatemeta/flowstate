@@ -30,41 +30,43 @@ export interface Comment {
   _createdAt: string
 }
 
-const pageQuery = groq`{
-  "lesson": *[_type == "educationLesson" && slug.current == $lessonSlug && category->slug.current == $categorySlug][0]{
-    _id,
-    title,
-    content,
-    video { asset->{playbackId} }
-  },
-  "navigation": *[_type == "navigation"][0],
-  "footer": *[_type == "footer"][0]
+// --- Sanity Queries ---
+const lessonQuery = groq`*[_type == "educationLesson" && slug.current == $lessonSlug && category->slug.current == $categorySlug][0]{
+  _id,
+  title,
+  content,
+  video {
+    asset->{playbackId}
+  }
 }`
 
 const commentsQuery = groq`*[_type == "lessonComment" && lesson._ref == $lessonId && approved == true] | order(_createdAt desc){
   _id,
-  author->{ name },
+  author->{
+    name
+  },
   comment,
   _createdAt
 }`
 
-export default async function LessonPage({
-  params,
-}: {
-  params: { categorySlug: string; lessonSlug: string }
-}) {
+const navigationQuery = groq`*[_type == "navigation"][0]`
+const footerQuery = groq`*[_type == "footer"][0]`
+
+interface PageProps {
+  params: {
+    categorySlug: string
+    lessonSlug: string
+  }
+}
+
+const LessonPage: React.FC<PageProps> = async ({ params }) => {
   const { categorySlug, lessonSlug } = params
 
   // --- DEBUGGING LOGS ---
   console.log(`[LessonPage] Attempting to fetch lesson with:`);
   console.log(`[LessonPage] categorySlug: ${categorySlug}`);
   console.log(`[LessonPage] lessonSlug: ${lessonSlug}`);
-
-  const { lesson, navigation, footer } = await client.fetch<{
-    lesson: Lesson;
-    navigation: any;
-    footer: any;
-  }>(pageQuery, {
+  const lesson = await client.fetch<Lesson>(lessonQuery, {
     lessonSlug,
     categorySlug,
   })
@@ -76,11 +78,15 @@ export default async function LessonPage({
   }
 
   // Fetch comments and other data in parallel after getting the lesson ID
-  const comments = await client.fetch<Comment[]>(commentsQuery, { lessonId: lesson._id })
+  const [comments, navigationData, footerData] = await Promise.all([
+    client.fetch<Comment[]>(commentsQuery, { lessonId: lesson._id }),
+    client.fetch(navigationQuery),
+    client.fetch(footerQuery),
+  ])
 
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#FFF8DC' }}>
-      {navigation && <TopNavigation data={navigation} />}
+      {navigationData && <TopNavigation data={navigationData} />}
       <main className="relative flex-grow pt-32 pb-24">
         <div className="max-w-4xl mx-auto px-4">
           <Link href={`/educationHub/${categorySlug}`} className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-8">
@@ -97,7 +103,9 @@ export default async function LessonPage({
           <CommentSection lessonId={lesson._id} initialComments={comments} />
         </div>
       </main>
-      {footer && <Footer data={footer} />}
+      {footerData && <Footer data={footerData} />}
     </div>
   )
 }
+
+export default LessonPage
