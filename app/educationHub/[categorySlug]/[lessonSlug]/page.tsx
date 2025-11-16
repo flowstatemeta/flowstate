@@ -37,13 +37,6 @@ interface PageData {
   footer: any
 }
 
-interface PageProps {
-  params: {
-    categorySlug: string
-    lessonSlug: string
-  }
-}
-
 // --- Sanity Queries ---
 const lessonQuery = groq`*[_type == "educationLesson" && slug.current == $lessonSlug && category->slug.current == $categorySlug][0]{
   _id,
@@ -88,7 +81,11 @@ async function getPageData({
   return { lesson, comments, navigation: navigationData, footer: footerData }
 }
 
-export default async function LessonPage({ params }: PageProps) {
+export default async function LessonPage({
+  params,
+}: {
+  params: { categorySlug: string; lessonSlug: string }
+}) {
   const { lesson, comments, navigation, footer } = await getPageData(params)
 
   return (
