@@ -52,18 +52,7 @@ const commentsQuery = groq`*[_type == "lessonComment" && lesson._ref == $lessonI
 const navigationQuery = groq`*[_type == "navigation"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`
 
-interface PageProps {
-  params: {
-    categorySlug: string
-    lessonSlug: string
-  }
-}
-
-async function LessonPageContent({
-  params,
-}: {
-  params: { categorySlug: string; lessonSlug: string }
-}) {
+export default async function LessonPage({ params }: any) {
   const { categorySlug, lessonSlug } = params
 
   // --- DEBUGGING LOGS ---
@@ -75,6 +64,7 @@ async function LessonPageContent({
     categorySlug,
   })
   console.log('[LessonPage] Fetched lesson data:', lesson);
+
 
   if (!lesson) {
     notFound()
@@ -92,7 +82,7 @@ async function LessonPageContent({
       {navigationData && <TopNavigation data={navigationData} />}
       <main className="relative flex-grow pt-32 pb-24">
         <div className="max-w-4xl mx-auto px-4">
-          <Link href={`/educationHub/${params.categorySlug}`} className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-8">
+          <Link href={`/educationHub/${categorySlug}`} className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-8">
             <ArrowLeftIcon className="h-5 w-5" />
             Back to Lessons
           </Link>
@@ -109,12 +99,4 @@ async function LessonPageContent({
       {footerData && <Footer data={footerData} />}
     </div>
   )
-}
-
-export default function Page({
-  params,
-}: {
-  params: { categorySlug: string; lessonSlug: string }
-}) {
-  return <LessonPageContent params={params} />
 }
