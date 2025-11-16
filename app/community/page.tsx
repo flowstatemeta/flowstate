@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import CommunityClient from '@/components/CommunityClient'
 
+export const dynamic = 'force-dynamic'
 
 // --- TypeScript Interfaces ---
 interface CommunityPageData {

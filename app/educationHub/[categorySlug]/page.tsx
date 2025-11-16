@@ -6,6 +6,8 @@ import Footer from '@/components/Footer'
 import { notFound } from 'next/navigation'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 
+export const dynamic = 'force-dynamic'
+
 // --- TypeScript Interfaces ---
 interface EducationCategory {
   title: string

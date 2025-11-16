@@ -4,6 +4,9 @@ import PostQuestionnaireClient from '@/components/PostQuestionnaireClient'
 import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 
+export const dynamic = 'force-dynamic'
+
+
 const postQuestionnaireQuery = groq`*[_type == "postQuestionnairePage"][0]{
   ...,
   video {

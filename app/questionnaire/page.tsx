@@ -4,6 +4,8 @@ import Footer from '@/components/Footer'
 import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 
+export const dynamic = 'force-dynamic'
+
 // Fetch the first questionnaire document. You could adapt this to fetch a specific one by its title or ID.
 const questionnaireQuery = groq`*[_type == "questionnaire"][0]{
   title,

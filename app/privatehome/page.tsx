@@ -15,6 +15,8 @@ const educationHubPreviewQuery = groq`*[_type == "educationHubPreview"][0]`
 const socialHandlesQuery = groq`*[_type == "socialHandles"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`
 
+export const dynamic = 'force-dynamic'
+
 export default async function PrivateHomePage() {
   // Fetch all page data in parallel
   const [

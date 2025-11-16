@@ -4,6 +4,9 @@ import OfficialRegisterForm from '@/components/OfficialRegisterForm'
 import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 
+export const dynamic = 'force-dynamic'
+
+
 const officialRegisterQuery = groq`*[_type == "officialRegisterPage"][0]`
 const navigationQuery = groq`*[_type == "navigation"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`

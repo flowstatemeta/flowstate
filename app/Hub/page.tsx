@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 export default function HubPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#FFF8DC]">

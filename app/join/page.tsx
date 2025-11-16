@@ -3,6 +3,8 @@ import TopNavigation from '@/components/TopNavigation'
 import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 
+export const dynamic = 'force-dynamic'
+
 const navigationQuery = groq`*[_type == "navigation"][0]`
 
 export default async function JoinPage() {

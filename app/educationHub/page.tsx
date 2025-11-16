@@ -6,6 +6,8 @@ import Footer from '@/components/Footer'
 import SocialHandles from '@/components/SocialHandles'
 import { motion } from 'framer-motion'
 
+export const dynamic = 'force-dynamic'
+ 
 // --- TypeScript Interfaces ---
 interface EducationCategory {
   _id: string

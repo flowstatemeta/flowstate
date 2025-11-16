@@ -5,6 +5,9 @@ import Sponsors, {type SponsorsData} from '@/components/Sponsors'
 import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 
+export const dynamic = 'force-dynamic'
+
+
 const navigationQuery = groq`*[_type == "navigation"][0]`
 const countdownQuery = groq`*[_type == "countdown"][0]{
   ...,

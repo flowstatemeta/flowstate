@@ -9,6 +9,8 @@ import Sponsors, {type SponsorsData} from '@/components/Sponsors'
 import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 
+export const dynamic = 'force-dynamic'
+
 const heroSectionQuery = groq`*[_type == "heroSection"][0]`
 const navigationQuery = groq`*[_type == "navigation"][0]`
 const servicePreviewQuery = groq`*[_type == "servicePreview"][0]`

@@ -2,6 +2,8 @@ import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 import { IntroPage } from '@/components/IntroPage'
 
+export const dynamic = 'force-dynamic'
+
 const introPageQuery = groq`*[_type == "introPage"][0]`
 
 async function getIntroPageData() {
@@ -21,7 +23,3 @@ export default async function Page() {
 
   return <IntroPage data={introData} />
 }
-
-// This tells Next.js to re-fetch the data on every request in development,
-// and at a specified interval in production.
-export const revalidate = 60 // Revalidate every 60 seconds
