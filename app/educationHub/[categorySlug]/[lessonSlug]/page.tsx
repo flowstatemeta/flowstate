@@ -60,7 +60,7 @@ interface PageProps {
 }
 
 export default async function LessonPage({ params }: PageProps) {
-  const { categorySlug, lessonSlug } = await params
+  const { categorySlug, lessonSlug } = params
 
   // --- DEBUGGING LOGS ---
   console.log(`[LessonPage] Attempting to fetch lesson with:`);
