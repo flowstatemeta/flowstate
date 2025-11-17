@@ -45,135 +45,8 @@ export default function WhyChooseUs({ data }: { data: WhyChooseUsData }) {
       transition: { duration: 0.5, ease: 'easeOut' },
     },
   }
-
-  // Effect for the "Rising Embers" animation
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const section = sectionRef.current;
-    if (!canvas || !section) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let isVisible = false; // Track if the component is on screen
-
-    const resizeCanvas = () => {
-      canvas.width = section.offsetWidth;
-      canvas.height = section.offsetHeight;
-    };
-
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      char: string;
-      life: number;
-      initialLife: number;
-      rotation: number;
-      rotationSpeed: number;
-
-      constructor(canvas: HTMLCanvasElement) {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.4; // Gentle multi-directional drift
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.radius = Math.random() * 12 + 8; // Size of the glyph
-        this.rotation = Math.random() * Math.PI * 2;
-        this.rotationSpeed = (Math.random() - 0.5) * 0.005;
-        this.initialLife = Math.random() * 300 + 200;
-        this.life = this.initialLife;
-        const chars = ['✧', '✦', '✶', '·', '•'];
-        this.char = chars[Math.floor(Math.random() * chars.length)];
-      }
-
-      draw(ctx: CanvasRenderingContext2D) {
-        const opacity = (this.life / this.initialLife) * 0.2; // Fading effect
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.rotation);
-        ctx.font = `${this.radius}px sans-serif`;
-        ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(this.char, 0, 0);
-        ctx.restore();
-      }
-
-      update(canvas: HTMLCanvasElement) {
-        this.life--;
-        this.x += this.vx;
-        this.y += this.vy;
-        this.rotation += this.rotationSpeed;
-
-        // Wrap around edges for continuous flow
-        if (this.x < -this.radius) this.x = canvas.width + this.radius;
-        if (this.x > canvas.width + this.radius) this.x = -this.radius;
-        if (this.y < -this.radius) this.y = canvas.height + this.radius;
-        if (this.y > canvas.height + this.radius) this.y = -this.radius;
-
-        if (this.life <= 0) {
-          this.life = this.initialLife;
-          this.y = Math.random() * canvas.height;
-        }
-      }
-    }
-
-    const particles: Particle[] = [];
-
-    const initializeParticles = () => {
-      particles.length = 0; // Clear existing particles
-      for (let i = 0; i < 80; i++) { // Fewer, larger particles
-        particles.push(new Particle(canvas));
-      }
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => p.update(canvas));
-      particles.forEach((p) => p.draw(ctx));
-      ctx.shadowBlur = 0; // Reset shadow for performance
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        isVisible = entry.isIntersecting;
-        if (isVisible) {
-          // Start animation if it's not already running
-          if (!animationFrameId) animate();
-        } else {
-          // Stop animation if it's running
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = 0; // Reset the ID
-        }
-      },
-      { threshold: 0.01 } // Trigger when 1% of the element is visible
-    );
-
-    observer.observe(section);
-
-    const handleResize = () => {
-      resizeCanvas();
-      initializeParticles();
-    };
-
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameId);
-      observer.disconnect();
-    };
-  }, []);
-
   return (
-    <section ref={sectionRef} className="relative w-full py-20 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#C1B59E] overflow-hidden">
-      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
+    <section className="relative w-full py-20 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#C1B59E] overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-12 lg:gap-16 items-center">
         {/* Left Column: Heading and Description */}
         <motion.div
@@ -234,16 +107,7 @@ export default function WhyChooseUs({ data }: { data: WhyChooseUsData }) {
           style={{ perspective: 1000 }} // Adds 3D perspective for the rotation
         >
           {(callToActionTitle || callToActionDescription || buttonText) && (
-            <motion.div
-              className={`${styles.donationCard} p-8 sm:p-10 md:p-12 lg:p-14 min-h-[300px] sm:min-h-[350px] md:min-h-[400px] max-w-md mx-auto transition-transform duration-300 hover:-translate-y-2`}
-              animate={{ rotateY: [0, 0, 360, 360, 0] }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                times: [0, 0.4, 0.6, 0.9, 1],
-              }}
-            >
+            <div className={`${styles.donationCard} p-8 sm:p-10 md:p-12 lg:p-14 min-h-[300px] sm:min-h-[350px] md:min-h-[400px] max-w-md mx-auto transition-transform duration-300 hover:-translate-y-2`}>
               {/* Envelope design lines */}
               <div className={styles.envelopeLineWrapper}>
                 <div className={`${styles.envelopeLine} ${styles.envelopeLineLeft}`} />
@@ -267,7 +131,7 @@ export default function WhyChooseUs({ data }: { data: WhyChooseUsData }) {
                   {buttonText} &rarr;
                 </Link>
               )}
-            </motion.div>
+            </div>
           )}
         </motion.div>
       </div>

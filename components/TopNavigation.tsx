@@ -1,7 +1,7 @@
 'use client'
 
 import { urlFor } from '@/lib/sanity.image'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -237,62 +237,71 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
         </div>
       </div>
 
-      {isMenuOpen && (
-        <div className="md:hidden bg-[#C1B59E] dark:bg-gray-800 pb-4">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
-            {filteredNavLinks?.map((item) => (
-              <Link key={item._key} href={item.link} className="text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                {item.title}
-              </Link>
-            ))}
-            <div className="relative pt-4">
-              <input
-                type="search"
-                placeholder="Search..."
-                className="bg-white/20 text-black placeholder-gray-700 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-full py-2 pl-10 pr-4 focus:outline-none w-full"
-              />
-              <svg className="w-5 h-5 text-gray-700 absolute left-3 top-1/2 -translate-y-1/2 mt-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </div>
-            <div className="pt-4">
-              {isLoggedIn ? (
-                <button onClick={() => signOut({ callbackUrl: '/privatehome' })} className="text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</button>
-              ) : (
-                loginText && pathname === '/privatehome' && (
-                  <Link href={`${loginLink || '#'}&showLogin=true`} className="text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                    {loginText}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="md:hidden fixed inset-0 bg-[#C1B59E] dark:bg-gray-900 z-40 flex flex-col items-center justify-center"
+            initial={{ opacity: 0, y: '-100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+          >
+            <div className="flex flex-col items-center justify-center h-full space-y-6 text-center">
+              {filteredNavLinks?.map((item, index) => (
+                <motion.div
+                  key={item._key}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                >
+                  <Link href={item.link} onClick={() => setIsMenuOpen(false)} className="text-3xl font-bold text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white">
+                    {item.title}
                   </Link>
-                )
-              )}
-              
-              {isLoggedIn && !isCommunityPage && (
-                <Link href="/community" className="text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  Community
-                </Link>
-              )}
+                </motion.div>
+              ))}
 
-              {signUpText && !isSpecialPage && (
-                <Link href={signUpLink || '#'} className="bg-black text-white px-5 py-2 rounded-full font-semibold hover:bg-gray-800 transition-colors block text-center mt-2">
-                  {signUpText}
-                </Link>
-              )}
-              {isSpecialPage && !isHomePage && (
-                <Suspense fallback={<div></div>}>
-                  <DynamicHomeLinkComponent homeLink={homeLink}>
-                    {(link) => (
-                      <Link href={link} className={`px-5 py-2 rounded-full font-semibold transition-transform duration-300 hover:scale-105 block text-center mt-2 ${useDarkText ? 'bg-black text-white hover:bg-gray-800 dark:bg-gray-700' : 'bg-white text-black hover:bg-gray-200'}`}>Home</Link>
-                    )}
-                  </DynamicHomeLinkComponent>
-                </Suspense>
-              )}
-              {contactText && (
-                <Link href={contactLink || '/join?tab=contact'} className="block px-5 py-2 mt-2 text-center text-base font-medium text-gray-800 dark:text-gray-200 rounded-lg border-2 border-black dark:border-gray-400 shadow-sm hover:bg-black hover:text-white dark:hover:bg-gray-700 transition-all duration-300">
-                  {contactText}
-                </Link>
-              )}
+              <motion.div
+                className="pt-8 flex flex-col items-center gap-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 + (filteredNavLinks?.length || 0) * 0.1 }}
+              >
+                {isLoggedIn ? (
+                  <button onClick={() => { signOut({ callbackUrl: '/privatehome' }); setIsMenuOpen(false); }} className="text-xl text-gray-800 dark:text-gray-200">Logout</button>
+                ) : (
+                  loginText && pathname === '/privatehome' && (
+                    <Link href={`${loginLink || '#'}&showLogin=true`} onClick={() => setIsMenuOpen(false)} className="text-xl text-gray-800 dark:text-gray-200">{loginText}</Link>
+                  )
+                )}
+                
+                {isLoggedIn && !isCommunityPage && (
+                  <Link href="/community" onClick={() => setIsMenuOpen(false)} className="text-xl text-gray-800 dark:text-gray-200">Community</Link>
+                )}
+
+                {signUpText && !isSpecialPage && (
+                  <Link href={signUpLink || '#'} onClick={() => setIsMenuOpen(false)} className="bg-black text-white px-8 py-3 rounded-full font-semibold text-lg">
+                    {signUpText}
+                  </Link>
+                )}
+                {isSpecialPage && !isHomePage && (
+                  <Suspense fallback={<div></div>}>
+                    <DynamicHomeLinkComponent homeLink={homeLink}>
+                      {(link) => (
+                        <Link href={link} onClick={() => setIsMenuOpen(false)} className="text-3xl font-bold text-gray-800 dark:text-gray-200">Home</Link>
+                      )}
+                    </DynamicHomeLinkComponent>
+                  </Suspense>
+                )}
+                {contactText && (
+                  <Link href={contactLink || '/join?tab=contact'} onClick={() => setIsMenuOpen(false)} className="text-xl text-gray-800 dark:text-gray-200">
+                    {contactText}
+                  </Link>
+                )}
+              </motion.div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }
