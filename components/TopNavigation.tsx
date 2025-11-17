@@ -101,7 +101,6 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
   return (
     <nav
       className={`fixed w-full top-0 left-0 z-50 transition-colors duration-300 ${isBgTransparent ? 'bg-transparent' : 'bg-[#C1B59E] dark:bg-gray-900 shadow-lg'}`}
-      style={{ transform: 'translateZ(0)' }}
     >
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         {!isBgTransparent && (
@@ -217,12 +216,12 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
             </div>
           )}
 
-          {isJoinPage && (
-            <div className="hidden md:flex md:items-center">
+          {isJoinPage && ( // This block now handles both mobile and desktop for the /join page
+            <div className="flex items-center">
               <Suspense fallback={<div></div>}>
                 <DynamicHomeLinkComponent homeLink={homeLink}>
                   {(link) => (
-                    <Link href={link} className={`px-5 py-2 rounded-full font-semibold transition-transform duration-300 hover:scale-105 ${useDarkText ? 'bg-black text-white hover:bg-gray-800 dark:bg-gray-700' : 'bg-white text-black hover:bg-gray-200'}`}>Home</Link>
+                    <Link href={link} className={`px-4 sm:px-5 py-2 text-sm sm:text-base rounded-full font-semibold transition-transform duration-300 hover:scale-105 ${useDarkText ? 'bg-black text-white hover:bg-gray-800 dark:bg-gray-700' : 'bg-white text-black hover:bg-gray-200'}`}>Home</Link>
                   )}
                 </DynamicHomeLinkComponent>
               </Suspense>
@@ -230,78 +229,98 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
           )}
 
           {!isJoinPage && <div className="md:hidden flex items-center">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`${useDarkText ? 'text-gray-800 hover:text-black dark:text-white' : 'text-white hover:text-gray-300'} focus:outline-none`}>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`relative z-[101] focus:outline-none ${useDarkText ? 'text-gray-800 hover:text-black dark:text-white' : 'text-white hover:text-gray-300'}`}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path></svg>
             </button>
           </div>}
+
         </div>
       </div>
 
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="md:hidden fixed inset-0 bg-[#C1B59E] dark:bg-gray-900 z-40 flex flex-col items-center justify-center"
-            initial={{ opacity: 0, y: '-100%' }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '-100%' }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[100] bg-[#C1B59E] dark:bg-gray-900 md:hidden"
+            id="mobile-menu"
           >
-            <div className="flex flex-col items-center justify-center h-full space-y-6 text-center">
-              {filteredNavLinks?.map((item, index) => (
-                <motion.div
+            <div className="flex h-full flex-col items-center justify-center space-y-6 pt-24 pb-8 px-4 overflow-y-auto">
+              {filteredNavLinks?.map((item) => (
+                <Link
                   key={item._key}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
+                  href={item.link}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`block rounded-lg px-4 py-2 text-2xl font-medium transition-all duration-300 hover:text-black dark:hover:text-white ${
+                    pathname === item.link ? 'bg-black/10 dark:bg-white/10 text-black dark:text-white scale-105' : 'text-gray-800 dark:text-gray-300'
+                  } `}
                 >
-                  <Link href={item.link} onClick={() => setIsMenuOpen(false)} className="text-3xl font-bold text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white">
-                    {item.title}
-                  </Link>
-                </motion.div>
+                  {item.title}
+                </Link>
               ))}
 
-              <motion.div
-                className="pt-8 flex flex-col items-center gap-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 + (filteredNavLinks?.length || 0) * 0.1 }}
-              >
+              <div className="flex flex-col items-center space-y-6">
                 {isLoggedIn ? (
-                  <button onClick={() => { signOut({ callbackUrl: '/privatehome' }); setIsMenuOpen(false); }} className="text-xl text-gray-800 dark:text-gray-200">Logout</button>
+                  <button
+                    onClick={() => {
+                      signOut({ callbackUrl: '/privatehome' });
+                      setIsMenuOpen(false);
+                    }}
+                    className="px-5 py-2 rounded-full font-semibold transition-transform duration-300 hover:scale-105 bg-black text-white hover:bg-gray-800 dark:bg-gray-700"
+                  >
+                    Logout
+                  </button>
                 ) : (
                   loginText && pathname === '/privatehome' && (
-                    <Link href={`${loginLink || '#'}&showLogin=true`} onClick={() => setIsMenuOpen(false)} className="text-xl text-gray-800 dark:text-gray-200">{loginText}</Link>
+                    <Link href={`${loginLink || '#'}&showLogin=true`} onClick={() => setIsMenuOpen(false)} className="px-5 py-2 rounded-full font-semibold transition-transform duration-300 hover:scale-105 bg-black text-white hover:bg-gray-800 dark:bg-gray-700">
+                      {loginText}
+                    </Link>
                   )
                 )}
-                
+
                 {isLoggedIn && !isCommunityPage && (
-                  <Link href="/community" onClick={() => setIsMenuOpen(false)} className="text-xl text-gray-800 dark:text-gray-200">Community</Link>
+                  <Link href="/community" onClick={() => setIsMenuOpen(false)} className="px-5 py-2 rounded-full font-semibold transition-transform duration-300 hover:scale-105 bg-black text-white hover:bg-gray-800 dark:bg-gray-700">
+                    Community
+                  </Link>
                 )}
 
                 {signUpText && !isSpecialPage && (
-                  <Link href={signUpLink || '#'} onClick={() => setIsMenuOpen(false)} className="bg-black text-white px-8 py-3 rounded-full font-semibold text-lg">
+                  <Link href={signUpLink || '#'} onClick={() => setIsMenuOpen(false)} className="px-5 py-2 rounded-full font-semibold transition-transform duration-300 hover:scale-105 bg-black text-white hover:bg-gray-800 dark:bg-gray-700">
                     {signUpText}
                   </Link>
                 )}
+
                 {isSpecialPage && !isHomePage && (
                   <Suspense fallback={<div></div>}>
                     <DynamicHomeLinkComponent homeLink={homeLink}>
                       {(link) => (
-                        <Link href={link} onClick={() => setIsMenuOpen(false)} className="text-3xl font-bold text-gray-800 dark:text-gray-200">Home</Link>
+                        <Link href={link} onClick={() => setIsMenuOpen(false)} className="px-5 py-2 rounded-full font-semibold transition-transform duration-300 hover:scale-105 bg-black text-white hover:bg-gray-800 dark:bg-gray-700">Home</Link>
                       )}
                     </DynamicHomeLinkComponent>
                   </Suspense>
                 )}
+
                 {contactText && (
-                  <Link href={contactLink || '/join?tab=contact'} onClick={() => setIsMenuOpen(false)} className="text-xl text-gray-800 dark:text-gray-200">
+                  <Link href={getContactLink()} onClick={() => setIsMenuOpen(false)} className="px-5 py-2 font-semibold rounded-lg border-2 shadow-sm transition-all duration-300 border-black text-black hover:bg-black hover:text-white dark:border-gray-600 dark:text-white dark:hover:bg-gray-700">
                     {contactText}
                   </Link>
                 )}
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </nav>
+
+
+
+
+
+
+
+
+
   )
 }

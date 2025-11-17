@@ -500,7 +500,7 @@ export default function UnifiedAuthForm() {
       <div className="absolute inset-0 bg-black/50 z-10"></div>
 
       <motion.div
-        className="relative z-20 w-full max-w-2xl p-10 bg-white/5 backdrop-blur-3xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden"
+        className="relative z-20 w-full max-w-md mx-4 sm:mx-0 p-6 sm:p-10 bg-white/5 backdrop-blur-3xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden"
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         initial={{ opacity: 0, scale: 0.9, rotateX: 10, rotateY: 0 }}
         animate={{ opacity: 1, scale: 1, rotateX: 0, rotateY: 0 }}
@@ -524,12 +524,12 @@ export default function UnifiedAuthForm() {
             delay: 2, // Initial delay
           }}
         />
-        <div className="flex justify-center border-b border-gray-700 mb-8">
+        <div className="flex justify-center border-b border-gray-700 mb-6 sm:mb-8">
           {visibleTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative flex-1 py-3 text-sm font-bold transition-colors ${activeTab === tab.id ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`relative flex-1 py-3 text-xs sm:text-sm font-bold transition-colors ${activeTab === tab.id ? 'text-white' : 'text-gray-400 hover:text-white'}`}
             >
               <span className="flex items-center justify-center gap-2">
                 <tab.icon className="h-5 w-5" />
@@ -549,7 +549,7 @@ export default function UnifiedAuthForm() {
         <form onSubmit={handleSubmit}>
           {renderFields()}
           <motion.button
-            type="submit"
+            type="submit" // The type is already submit, no change needed here.
             className="w-full mt-8 py-2.5 px-4 bg-white text-black font-bold rounded-lg shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-400"
             whileHover={{ scale: 1.03, y: -2, boxShadow: '0 10px 20px rgba(255, 255, 255, 0.15)' }}
             whileTap={{ scale: 0.98, y: 0 }}

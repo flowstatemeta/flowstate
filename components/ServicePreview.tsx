@@ -41,10 +41,10 @@ export default function ServicePreview({ data }: { data: ServicePreviewData }) {
 
   return (
     <section className="relative w-full py-12 sm:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden" style={{ backgroundColor: '#FFF8DC' }}>
-      <div className="relative z-10 max-w-7xl mx-auto text-center px-4">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-black">{heading}</h2>
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-black text-left sm:text-center">{heading}</h2>
         {description && (
-          <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-black">{description}</p>
+          <p className="mt-4 max-w-2xl sm:mx-auto text-base sm:text-lg md:text-xl text-black text-left sm:text-center">{description}</p>
         )}
       </div>
 
@@ -87,9 +87,9 @@ export default function ServicePreview({ data }: { data: ServicePreviewData }) {
                   }}
                 />
                 <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold transition-transform duration-500 ease-in-out group-hover:-translate-y-20">{card.title}</h3>
-                  <div className="max-h-0 opacity-0 group-hover:max-h-64 group-hover:opacity-100 group-hover:mt-4 transition-all duration-500 ease-in-out">
-                    <p className="text-gray-200 text-sm sm:text-base">{card.description}</p>
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold transition-transform duration-500 ease-in-out lg:group-hover:-translate-y-20">{card.title}</h3>
+                  <div className="mt-2 transition-all duration-500 ease-in-out lg:mt-4 lg:max-h-0 lg:opacity-0 lg:group-hover:max-h-64 lg:group-hover:opacity-100">
+                    <p className="text-gray-200 text-xs sm:text-sm max-h-24 overflow-y-auto lg:max-h-full lg:overflow-y-visible">{card.description}</p>
                     {card.buttonLink && card.buttonText && (
                       <a href={card.buttonLink} className="mt-4 inline-block bg-white text-black font-bold py-2 px-4 rounded-md text-xs sm:text-sm hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 transition-colors duration-300">
                         {card.buttonText}
