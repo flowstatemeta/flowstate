@@ -155,10 +155,10 @@ export default function Countdown({ data }: { data: CountdownData }) {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           {/* Stopwatch Body */}
-          <div className="relative w-80 h-80 md:w-96 md:h-96">
+          <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
             {/* Buttons */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-end gap-2">
-              <div className="w-4 h-6 bg-gray-300 rounded-t-sm" />
+              <div className="w-3 h-4 bg-gray-300 rounded-t-sm" />
               <div className="w-8 h-10 bg-gray-400 rounded-t-md border-b-2 border-gray-500" />
               <div className="w-4 h-6 bg-gray-300 rounded-t-sm" />
             </div>
@@ -167,14 +167,14 @@ export default function Countdown({ data }: { data: CountdownData }) {
             <div className="w-full h-full rounded-full bg-gray-200 shadow-2xl border-8 border-gray-300 flex flex-col items-center justify-center">
               {isClient && !timeLeft.isExpired && (
                 <div className="flex items-center text-gray-800">
-                  <TimeUnit value={timeLeft.days} label="Days" />
+                  <TimeUnit value={timeLeft.days} label="Days"/>
                   <Separator />
                   <TimeUnit value={timeLeft.hours} label="Hours" />
                   <Separator />
                   <TimeUnit value={timeLeft.minutes} label="Minutes" />
                   <Separator />
                   <TimeUnit value={timeLeft.seconds} label="Seconds" />
-                </div>
+                </div>                
               )}
             </div>
           </div>
@@ -245,11 +245,11 @@ export default function Countdown({ data }: { data: CountdownData }) {
 
 const TimeUnit = ({ value, label }: { value: string; label: string }) => (
   <div className="flex flex-col items-center w-24 md:w-32">
-    <div className="flex">
+    <div className="flex">      
       {value.split('').map((digit, i) => (
         <AnimatedDigit key={`${label}-${i}`} value={digit} />
       ))}
-    </div>
+    </div>    
     <span className="mt-1 text-xs text-gray-500 uppercase tracking-widest">
       {label}
     </span>
@@ -258,6 +258,6 @@ const TimeUnit = ({ value, label }: { value: string; label: string }) => (
 
 const Separator = () => (
   <div className="flex flex-col items-center w-4 md:w-6">
-    <span className="text-5xl md:text-7xl font-mono font-bold">:</span>
+    <span className="text-4xl md:text-7xl font-mono font-bold">:</span>
   </div>
 )
