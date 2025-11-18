@@ -1,6 +1,7 @@
 import { urlFor } from '@/lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 export interface IntroPageData {
   _id: string
@@ -68,7 +69,7 @@ export default function IntroPage({ data }: { data: IntroPageData }) {
               alt="Top Left Logo"
               width={100}
               height={100}
-              className="h-12 w-auto md:h-16"
+              className="h-10 w-auto sm:h-12 md:h-16"
             />
           </div>
         )}
@@ -81,22 +82,26 @@ export default function IntroPage({ data }: { data: IntroPageData }) {
               alt="Top Right Logo"
               width={100}
               height={100}
-              className="h-12 w-auto md:h-16"
+              className="h-10 w-auto sm:h-12 md:h-16"
             />
           </div>
         )}
 
         {/* Main Content */}
         <div className="flex flex-col items-center justify-center flex-grow">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">{heading}</h1>
-          {heading2 && <h2 className="text-2xl md:text-4xl mb-6">{heading2}</h2>}
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4">{heading}</h1>
+          {heading2 && <h2 className="text-xl sm:text-2xl md:text-4xl mb-6">{heading2}</h2>}
         </div>
 
         {/* Bottom Content */}
         <div className="pb-16">
-          {description && <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8">{description}</p>}
-          <Link href={buttonLink} passHref legacyBehavior>
-            <a className="bg-white text-black font-bold py-3 px-8 rounded-lg text-lg hover:bg-gray-200 transition-colors duration-300">{buttonText}</a>
+          {description && <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8">{description}</p>}
+          <Link
+            href={buttonLink}
+            className="group relative inline-block overflow-hidden rounded-lg border-2 border-white bg-transparent px-8 py-3 text-center font-bold text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
+          >
+            <div className="absolute inset-0 w-0 bg-white transition-all duration-300 ease-out group-hover:w-full"></div>
+            <span className="relative text-base sm:text-lg transition-colors duration-300 ease-in-out group-hover:text-black">{buttonText}</span>
           </Link>
         </div>
       </div>
