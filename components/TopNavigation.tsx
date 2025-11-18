@@ -100,7 +100,7 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
 
   return (
     <nav
-      className={`fixed w-full top-0 left-0 z-50 transition-colors duration-300 ${isBgTransparent ? 'bg-transparent' : 'bg-[#C1B59E] dark:bg-gray-900 shadow-lg'}`}
+      className={`fixed w-full top-0 left-0 z-50 transition-colors duration-300 ${isBgTransparent ? 'bg-transparent' : 'bg-[#C1B59E] shadow-lg'}`}
     >
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         {!isBgTransparent && (
@@ -244,7 +244,7 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-[#C1B59E] dark:bg-gray-900 md:hidden"
+            className="fixed inset-0 z-[100] bg-[#C1B59E] md:hidden"
             id="mobile-menu"
           >
             <div className="flex h-full flex-col items-center justify-center space-y-6 pt-24 pb-8 px-4 overflow-y-auto">
