@@ -89,7 +89,7 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
   const isHomePage = pathname === '/home' || pathname === '/' || pathname === '/privatehome'
   const filteredNavLinks = isHomePage ? navLinks?.filter(link => link.title.toLowerCase() !== 'home') : navLinks
   const isBgTransparent = isJoinPage || !isScrolled
-  const useDarkText = isScrolled || isSignUpPage || isEducationHubPage || pathname === '/post-questionnaire' || pathname === '/offregester' || isCommunityPage
+  const useDarkText = isScrolled || isSignUpPage || isEducationHubPage || pathname === '/post-questionnaire' || pathname === '/offregester' || isCommunityPage || pathname === '/marketplace'
   
   const getContactLink = () => {
     if (pathname === '/privatehome') {
@@ -166,6 +166,9 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
                       {item.title}
                     </Link>
                   ))}
+                  <Link href="/marketplace" className={`font-medium transition-colors ${useDarkText ? 'text-gray-800 hover:text-black' : 'text-white hover:text-gray-300'}`}>
+                    Marketplace
+                  </Link>
                 </div>
 
                 <div className="flex items-center space-x-4">
@@ -260,6 +263,16 @@ export default function TopNavigation({ data }: { data: NavigationData; onHeight
                   {item.title}
                 </Link>
               ))}
+
+              <Link
+                href="/marketplace"
+                onClick={() => setIsMenuOpen(false)}
+                className={`block rounded-lg px-4 py-2 text-2xl font-medium transition-all duration-300 hover:text-black dark:hover:text-white ${
+                  pathname === '/marketplace' ? 'bg-black/10 dark:bg-white/10 text-black dark:text-white scale-105' : 'text-gray-800 dark:text-gray-300'
+                } `}
+              >
+                Marketplace
+              </Link>
 
               <div className="flex flex-col items-center space-y-6">
                 {isLoggedIn ? (
