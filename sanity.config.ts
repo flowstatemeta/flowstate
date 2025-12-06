@@ -1,18 +1,27 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
+import {muxInput} from 'sanity-plugin-mux-input'
 import {schemaTypes} from './schemaTypes'
+import {ExportReferralAction} from './.sanity/actions/ExportReferralAction.js'
 
 export default defineConfig({
   name: 'default',
   title: 'FlowStateMeta',
 
-  projectId: '4clzhbog',
+  projectId: 'r96iva8u',
   dataset: 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool(),
+    muxInput(),
+  ],
 
   schema: {
     types: schemaTypes,
+  },
+
+  document: {
+    actions: (prev, {schemaType}) =>
+      schemaType === 'referralCode' ? [ExportReferralAction, ...prev] : prev,
   },
 })
