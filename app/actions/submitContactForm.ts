@@ -1,6 +1,6 @@
 'use server'
 
-import { sanityWriteClient } from '@/lib/sanity.server'
+import { sanityClient } from '@/lib/sanity.server'
 
 interface ContactFormData {
   name: string
@@ -17,7 +17,7 @@ export async function submitContactForm(formData: ContactFormData) {
 
   try {
     // Create a new contact message document in Sanity
-    const newMessage = await sanityWriteClient.create({
+    const newMessage = await sanityClient.create({
       _type: 'contactMessage',
       name: name,
       email: email,
