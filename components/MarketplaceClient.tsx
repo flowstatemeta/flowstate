@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import {CheckBadgeIcon} from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import {urlFor} from '@/lib/urlFor'
 
@@ -16,6 +17,7 @@ interface MarketplaceItem {
       _type: 'reference'
     }
   }
+  isVerified?: boolean
   sellerName: string
   sellerImage: any // Can be an image object or null
 }
@@ -40,6 +42,12 @@ export default function MarketplaceClient({items}: MarketplaceClientProps) {
               className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col group transform hover:-translate-y-2 transition-all duration-300"
             >
               <div className="relative h-56 w-full">
+                  {item.isVerified && (
+                    <div className="absolute top-2 right-2 z-10 flex items-center bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                      <CheckBadgeIcon className="w-4 h-4 mr-1" />
+                      Verified
+                    </div>
+                  )}
                 <Image src={urlFor(item.mainImage).url()} alt={item.title} layout="fill" objectFit="cover" />
               </div>
               <div className="p-5 flex flex-col flex-grow">

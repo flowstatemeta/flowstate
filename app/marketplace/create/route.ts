@@ -17,14 +17,6 @@ export async function POST(req: NextRequest) {
     authProviderId: session.user.id,
   })
 
-  // 3. Authorize: Check if the user has the premium package
-  if (user?.package !== 'premium') {
-    return NextResponse.json(
-      {message: 'Forbidden: Premium package required to post items.'},
-      {status: 403},
-    )
-  }
-
   // 4. Validate incoming data
   const body = await req.json() // Get JSON body from NextRequest
   const {title, description, price, images} = body
@@ -34,6 +26,9 @@ export async function POST(req: NextRequest) {
   }
 
   // 5. Create the marketplace item document in Sanity
+  // Check if the user has the premium package to set the verified flag.
+  const isVerified = user?.package === 'premium'
+
   try {
     const doc = {
       _type: 'marketplaceItem',
@@ -46,6 +41,7 @@ export async function POST(req: NextRequest) {
         _ref: user._id, // Link the item to the Sanity user document
       },
       status: 'active',
+      isVerified: isVerified,
     }
 
     const createdItem = await sanityClient.create(doc)
