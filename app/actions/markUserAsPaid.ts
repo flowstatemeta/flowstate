@@ -1,6 +1,6 @@
 'use server'
 
-import { sanityWriteClient } from '@/lib/sanity.server'
+import { sanityClient } from '@/lib/sanity.server'
 import { groq } from 'next-sanity'
 
 export async function markUserAsPaid(userId: string, referralCode: string) {
@@ -11,7 +11,7 @@ export async function markUserAsPaid(userId: string, referralCode: string) {
   try {
     // 1. Find the referral code document ID
     const codeQuery = groq`*[_type == "referralCode" && code == $code][0]._id`
-    const referralCodeId = await sanityWriteClient.fetch(codeQuery, { code: referralCode })
+    const referralCodeId = await sanityClient.fetch(codeQuery, { code: referralCode })
 
     if (!referralCodeId) {
       // This case is unlikely if the user was pending, but it's good practice to check.
@@ -19,7 +19,7 @@ export async function markUserAsPaid(userId: string, referralCode: string) {
     }
 
     // 2. Atomically move the user from 'pendingUsers' to 'paidUsers'
-    await sanityWriteClient
+    await sanityClient
       .patch(referralCodeId)
       // Ensure the paidUsers array exists
       .setIfMissing({ paidUsers: [], pendingCount: 0, paidCount: 0 })
