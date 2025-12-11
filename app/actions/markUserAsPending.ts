@@ -1,6 +1,6 @@
 'use server'
 
-import { sanityWriteClient } from '@/lib/sanity.server'
+import { sanityClient } from '@/lib/sanity.server'
 import { groq } from 'next-sanity'
 
 export async function markUserAsPending(
@@ -14,14 +14,14 @@ export async function markUserAsPending(
   try {
     // 1. Find the referral code document
     const codeQuery = groq`*[_type == "referralCode" && code == $code][0]._id`
-    const referralCodeId = await sanityWriteClient.fetch(codeQuery, { code: referralCode })
+    const referralCodeId = await sanityClient.fetch(codeQuery, { code: referralCode })
 
     if (!referralCodeId) {
       return { success: false, error: 'Invalid referral code.' }
     }
 
     // 2. Increment the pendingCount for the referral code
-    await sanityWriteClient
+    await sanityClient
       .patch(referralCodeId)
       .setIfMissing({ pendingCount: 0 })
       .inc({ pendingCount: 1 })
