@@ -1,6 +1,6 @@
 'use server'
 
-import { sanityWriteClient } from '@/lib/sanity.server'
+import { sanityClient } from '@/lib/sanity.server'
 import { groq } from 'next-sanity'
 import bcrypt from 'bcryptjs'
 
@@ -25,7 +25,7 @@ export async function registerUser(formData: RegisterUserParams) {
 
   try {
     // --- Check if username already exists ---
-    const existingUser = await sanityWriteClient.fetch(
+    const existingUser = await sanityClient.fetch(
       groq`*[_type == "user" && username == $username][0]`,
       { username }
     )
@@ -35,7 +35,7 @@ export async function registerUser(formData: RegisterUserParams) {
     // Hash the password for security
     const hashedPassword = await bcrypt.hash(password, 10)
     // Create the new user document
-    const newUser = await sanityWriteClient.create({
+    const newUser = await sanityClient.create({
       _type: 'user',
       name: name,
       username: username,
