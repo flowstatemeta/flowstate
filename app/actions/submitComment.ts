@@ -1,6 +1,6 @@
 'use server'
 
-import { sanityWriteClient } from '@/lib/sanity.server'
+import { sanityClient } from '@/lib/sanity.server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/authOptions'
 import { revalidatePath } from 'next/cache'
@@ -19,7 +19,7 @@ export async function submitComment(params: SubmitCommentParams) {
   }
 
   try {
-    const newComment = await sanityWriteClient.create({
+    const newComment = await sanityClient.create({
       _type: 'lessonComment',
       ...(lessonId && {
         lesson: { _type: 'reference', _ref: lessonId },
