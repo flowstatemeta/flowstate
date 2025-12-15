@@ -34,7 +34,11 @@ const categoryAndLessonsQuery = groq`*[_type == "educationCategory" && slug.curr
 const navigationQuery = groq`*[_type == "navigation"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`
 
-export default async function CategoryLessonsPage({ params }: any) {
+export default async function CategoryLessonsPage({
+  params,
+}: {
+  params: { categorySlug: string }
+}) {
   const { categorySlug } = params
   const [category, navigationData, footerData] = await Promise.all([
     client.fetch<EducationCategory>(categoryAndLessonsQuery, { slug: categorySlug }),
