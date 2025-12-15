@@ -31,7 +31,7 @@ export interface Comment {
 }
 
 // --- Sanity Queries ---
-const lessonQuery = groq`*[_type == "educationLesson" && slug.current == $lessonSlug && category->slug.current == $categorySlug][0]{
+const lessonQuery = groq`*[_type == "educationLesson" && slug.current == $lessonSlug && category->slug.current == $slug][0]{
   _id,
   title,
   content,
@@ -61,7 +61,7 @@ export default async function LessonPage({ params }: any) {
   console.log(`[LessonPage] lessonSlug: ${lessonSlug}`);
   const lesson = await client.fetch<Lesson>(lessonQuery, {
     lessonSlug,
-    categorySlug,
+    slug: categorySlug,
   })
   console.log('[LessonPage] Fetched lesson data:', lesson);
 
