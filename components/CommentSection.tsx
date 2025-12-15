@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { type Comment } from '@/app/educationHub/[categorySlug]/[lessonSlug]/page' // Ensure this path is correct
+import { type Comment } from '@/types'
 import { useSession } from 'next-auth/react'
 import { submitComment } from '@/app/actions/submitComment'
 

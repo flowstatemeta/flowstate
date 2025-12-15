@@ -3,17 +3,9 @@ import { groq } from 'next-sanity'
 import Link from 'next/link'
 import TopNavigation from '@/components/TopNavigation'
 import Footer from '@/components/Footer'
+import { type EducationCategory } from '@/types'
 
 export const dynamic = 'force-dynamic'
-
-// --- TypeScript Interfaces ---
-interface EducationCategory {
-  _id: string
-  title: string
-  slug: {
-    current: string
-  }
-}
 
 // --- Sanity Queries ---
 const educationCategoriesQuery = groq`*[_type == "educationCategory"] | order(orderRank asc, title asc)`

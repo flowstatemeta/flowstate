@@ -5,20 +5,9 @@ import TopNavigation from '@/components/TopNavigation'
 import Footer from '@/components/Footer'
 import { notFound } from 'next/navigation'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
+import { type EducationCategory } from '@/types'
 
 export const dynamic = 'force-dynamic'
-
-// --- TypeScript Interfaces ---
-interface EducationCategory {
-  title: string
-  lessons: {
-    _id: string
-    title: string
-    slug: {
-      current: string
-    }
-  }[]
-}
 
 // --- Sanity Queries ---
 const categoryAndLessonsQuery = groq`*[_type == "educationCategory" && slug.current == $slug][0]{
@@ -37,7 +26,9 @@ export default async function CategoryLessonsPage(props: { params: Promise<{ cat
   const { categorySlug } = await props.params
 
   const [category, navigationData, footerData] = await Promise.all([
-    client.fetch<EducationCategory>(categoryAndLessonsQuery, { slug: categorySlug }),
+    client.fetch<{ title: string; lessons: { _id: string; title: string; slug: { current: string } }[] }>(
+      categoryAndLessonsQuery, { slug: categorySlug }
+    ),
     client.fetch(navigationQuery),
     client.fetch(footerQuery),
   ])
