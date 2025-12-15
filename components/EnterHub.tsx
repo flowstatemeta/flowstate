@@ -22,7 +22,7 @@ export default function EnterHub({ data }: { data: EnterHubData }) {
 
   // If the user is logged in, the button goes straight to the hub.
   // Otherwise, it goes to the login form as before.
-  const dynamicButtonLink = isLoggedIn ? '/educationHub' : `${buttonLink}&showLogin=true`;
+  const dynamicButtonLink = isLoggedIn ? '/Education' : `${buttonLink}&showLogin=true`;
 
   return (
     <section className="w-full py-16 sm:py-24" style={{ backgroundColor: '#FFF8DC' }}>
