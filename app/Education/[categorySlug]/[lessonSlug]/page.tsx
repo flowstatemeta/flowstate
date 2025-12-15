@@ -8,29 +8,9 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { PortableText } from '@portabletext/react'
 import LessonVideoPlayer from '@/components/LessonVideoPlayer'
 import CommentSection from '@/components/CommentSection'
+import { type Lesson, type Comment } from '@/types'
 
 export const dynamic = 'force-dynamic'
-
-// --- TypeScript Interfaces ---
-interface Lesson {
-  _id: string
-  title: string
-  video: {
-    asset: {
-      playbackId: string
-    }
-  }
-  content?: any[]
-}
-
-export interface Comment {
-  _id: string
-  author: {
-    name: string
-  }
-  comment: string
-  _createdAt: string
-}
 
 // --- Sanity Queries ---
 const lessonQuery = groq`*[_type == "educationLesson" && slug.current == $lessonSlug && category->slug.current == $categorySlug][0]{
