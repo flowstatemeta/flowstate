@@ -10,11 +10,12 @@ export const dynamic = 'force-dynamic'
 
 // --- TypeScript Interfaces ---
 interface EducationCategory {
-  title: string
+  title: string;
+  lessons: EducationLesson[];
 }
 
 interface EducationLesson {
-  _id: string
+  _id: string;
   title: string
   slug: {
     current: string
@@ -22,29 +23,28 @@ interface EducationLesson {
 }
 
 // --- Sanity Queries ---
-const categoryQuery = groq`*[_type == "educationCategory" && slug.current == $slug][0]{ title }`
-const lessonsQuery = groq`*[_type == "educationLesson" && category->slug.current == $slug] | order(title asc){
-  _id,
+const categoryAndLessonsQuery = groq`*[_type == "educationCategory" && slug.current == $slug][0]{
   title,
-  slug
+  "lessons": *[_type == "educationLesson" && references(^._id)] | order(title asc){
+    _id,
+    title,
+    slug
+  }
 }`
 const navigationQuery = groq`*[_type == "navigation"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`
 
 export default async function CategoryLessonsPage({ params }: any) {
   const { categorySlug } = params
-
-  // Fetch all necessary data in parallel
-  const [category, lessons, navigationData, footerData] = await Promise.all([
-    client.fetch<EducationCategory>(categoryQuery, { slug: categorySlug }),
-    client.fetch<EducationLesson[]>(lessonsQuery, { slug: categorySlug }),
+  const [category, navigationData, footerData] = await Promise.all([
+    client.fetch<EducationCategory>(categoryAndLessonsQuery, { slug: categorySlug }),
     client.fetch(navigationQuery),
     client.fetch(footerQuery),
   ])
 
   console.log(`[CategoryLessonsPage] Fetching for categorySlug: ${categorySlug}`);
   console.log('[CategoryLessonsPage] Fetched category:', category);
-  console.log('[CategoryLessonsPage] Fetched lessons:', lessons);
+  console.log('[CategoryLessonsPage] Fetched lessons:', category?.lessons);
   // If no category is found for the slug, show a 404 page
   if (!category) {
     notFound()
@@ -63,7 +63,7 @@ export default async function CategoryLessonsPage({ params }: any) {
           <p className="mt-4 text-lg text-gray-600 text-center">Select a lesson to begin.</p>
 
           <div className="mt-16 flex flex-col items-center gap-6">
-            {lessons?.map((lesson) => (
+            {category.lessons?.map((lesson) => (
               <Link
                 key={lesson._id}
                 href={`/educationHub/${categorySlug}/${lesson.slug.current}`}
