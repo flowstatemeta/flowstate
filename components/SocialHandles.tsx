@@ -67,13 +67,11 @@ function AnimatedSocialIcon({ social, Icon, index }: { social: SocialLink; Icon:
     // This randomization only runs on the client, after hydration
     const randomDuration = Math.random() * 5 + 5; // 5 to 10 seconds
     const randomDirection = Math.random() > 0.5 ? 1 : -1; // Clockwise or counter-clockwise
-    const colors = ['#FF007F', '#00FFFF', '#FFD700', '#8A2BE2', '#00FF00'];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
     setAnimationProps({
       duration: randomDuration,
       direction: randomDirection,
-      color: randomColor,
+      color: '#000000', // Set to black as requested
     });
   }, []);
 
@@ -98,10 +96,10 @@ function AnimatedSocialIcon({ social, Icon, index }: { social: SocialLink; Icon:
           }}
         >
           <div
-            className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full"
+            className="absolute -top-2 left-1/2 -translate-x-1/2 w-0.5 h-4 rotate-12 rounded-full"
             style={{
               background: animationProps.color,
-              boxShadow: `0 0 12px ${animationProps.color}, 0 0 20px ${animationProps.color}`,
+              boxShadow: `0 0 8px ${animationProps.color}`,
             }}
           />
         </motion.div>
