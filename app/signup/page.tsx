@@ -1,7 +1,6 @@
 import Countdown from '@/components/Countdown'
 import Footer from '@/components/Footer'
 import TopNavigation from '@/components/TopNavigation'
-import Sponsors, {type SponsorsData} from '@/components/Sponsors'
 import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 
@@ -17,7 +16,6 @@ const countdownQuery = groq`*[_type == "countdown"][0]{
     }
   }
 }`
-const sponsorsQuery = groq`*[_type == "sponsors"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`
 
 export default async function SignUpPage() {
@@ -28,7 +26,6 @@ export default async function SignUpPage() {
       client.fetch(countdownQuery),
       client.fetch(footerQuery),
     ])
-  const sponsorsData = await client.fetch<SponsorsData>(sponsorsQuery)
 
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#FFF8DC' }}>
@@ -37,7 +34,6 @@ export default async function SignUpPage() {
         <div className="relative flex items-center justify-center py-12">
           {countdownData && <Countdown data={countdownData} />}
         </div>
-        {sponsorsData && <Sponsors data={sponsorsData} />}
       </main>
       {footerData && <Footer data={footerData} />}
     </div>
