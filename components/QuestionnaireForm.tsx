@@ -143,14 +143,14 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
       case 'namePage':
         return (
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-800">{page.heading}</h2>
-            {page.description && <p className="mt-4 text-gray-600">{page.description}</p>}
-            <div className="mt-8 space-y-6 max-w-md mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{page.heading}</h2>
+            {page.description && <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">{page.description}</p>}
+            <div className="mt-6 sm:mt-8 space-y-6 max-w-md mx-auto">
               <input
                 type="text"
                 placeholder="Your Name"
                 value={answers[page._key] || ''}
-                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500 focus:outline-none text-black"
+                className="w-full p-3 sm:p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500 focus:outline-none text-black"
                 onChange={(e) => handleAnswerChange(page._key, e.target.value)}
               />
             </div>
@@ -159,14 +159,14 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
       case 'numberPage':
         return (
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-800">{page.heading}</h2>
-            {page.description && <p className="mt-4 text-gray-600">{page.description}</p>}
-            <div className="mt-8 space-y-6 max-w-md mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{page.heading}</h2>
+            {page.description && <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">{page.description}</p>}
+            <div className="mt-6 sm:mt-8 space-y-6 max-w-md mx-auto">
               <input
                 type="tel"
                 placeholder="Your Number"
                 value={answers[page._key] || ''}
-                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500 focus:outline-none text-black"
+                className="w-full p-3 sm:p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500 focus:outline-none text-black"
                 onChange={(e) => handleAnswerChange(page._key, e.target.value.replace(/[^0-9]/g, ''))}
               />
             </div>
@@ -175,9 +175,9 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
       case 'questionPage':
         return (
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-800">{page.question}</h2>
-            {page.description && <p className="mt-4 text-gray-600">{page.description}</p>}
-            <div className="mt-8 grid grid-cols-1 gap-4 max-w-md mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{page.question}</h2>
+            {page.description && <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">{page.description}</p>}
+            <div className="mt-6 sm:mt-8 grid grid-cols-1 gap-3 sm:gap-4 max-w-md mx-auto">
               {page.options.map((option) => (
                 <button
                   key={option}
@@ -187,7 +187,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
                       handleNext() // Automatically go to next question, unless it's the last one
                     }
                   }}
-                  className={`p-4 rounded-lg border-2 transition-all duration-200 ${
+                  className={`p-3 sm:p-4 rounded-lg border-2 transition-all duration-200 ${
                     answers[page._key] === option
                       ? 'bg-gray-800 text-white border-gray-800'
                       : 'bg-white text-gray-800 border-gray-300 hover:border-gray-500 hover:bg-gray-50'
@@ -210,7 +210,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
   }
 
   return (
-    <section className="relative flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative flex-grow flex items-center justify-center py-8 px-4 sm:py-12 sm:px-6 lg:px-8 overflow-hidden">
       <div className="w-full max-w-3xl">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
@@ -230,7 +230,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
         {error && <p className="text-center text-black font-semibold mt-4">{error}</p>}
 
         {/* Navigation Buttons */}
-        <div className="mt-12 flex justify-between items-center max-w-2xl mx-auto">
+        <div className="mt-8 sm:mt-12 flex justify-between items-center max-w-md mx-auto w-full">
           {/* Back Button */}
           <button
             onClick={handleBack}

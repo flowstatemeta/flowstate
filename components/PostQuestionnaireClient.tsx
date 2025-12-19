@@ -21,6 +21,7 @@ interface PostQuestionnaireClientProps {
   videoLockedMessage?: string
   copyableMessage?: string
   copyButtonText?: string
+  preCopyMessage?: string
 }
 
 export default function PostQuestionnaireClient(
@@ -37,6 +38,7 @@ export default function PostQuestionnaireClient(
     videoLockedMessage,
     copyableMessage,
     copyButtonText,
+    preCopyMessage,
   } = props
 
   const [individualTargetDate, setIndividualTargetDate] = useState<string | undefined>()
@@ -73,7 +75,7 @@ export default function PostQuestionnaireClient(
             {heading}
           </h1>
           {description && (
-            <p className="mt-6 text-lg text-gray-700 leading-relaxed">
+            <p className="mt-6 text-lg text-gray-700 leading-relaxed text-left ml-4">
               {description}
             </p>
           )}
@@ -87,16 +89,22 @@ export default function PostQuestionnaireClient(
             />
           )}
 
+          {preCopyMessage && (
+            <p className="mt-10 text-lg text-gray-700 leading-relaxed text-left ml-4 max-w-lg mx-auto w-full">
+              {preCopyMessage}
+            </p>
+          )}
+
           {/* Copyable Message Section */}
           {copyableMessage && (
             <motion.div
-              className="mt-10 w-full max-w-lg mx-auto"
+              className={`${preCopyMessage ? 'mt-4' : 'mt-10'} w-full max-w-lg mx-auto`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className="relative p-4 border-2 border-dashed border-gray-400 rounded-lg bg-white/50">
-                <p className="text-gray-800 text-center font-medium whitespace-pre-wrap">{copyableMessage}</p>
+                <p className="text-gray-800 text-left ml-4 font-medium whitespace-pre-wrap">{copyableMessage}</p>
                 {copyButtonText && (
                   <button
                     onClick={handleCopy}

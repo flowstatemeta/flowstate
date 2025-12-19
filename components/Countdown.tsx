@@ -8,6 +8,7 @@ import { validateReferral } from '@/app/actions/validateReferral' // Import the 
 
 export interface CountdownData {
   heading: string
+  clockTitle?: string
   description?: string
   targetDate: string
   expiredMessage?: string
@@ -63,6 +64,7 @@ const AnimatedDigit = ({ value }: { value: string }) => {
 export default function Countdown({ data }: { data: CountdownData }) {
   const {
     heading,
+    clockTitle,
     description,
     targetDate,
     expiredMessage,
@@ -140,20 +142,18 @@ export default function Countdown({ data }: { data: CountdownData }) {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">{heading}</h2>
-          {description && (
-            <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
-              {description}
-            </p>
-          )}
         </motion.div>
 
         <motion.div
-          className="mt-16 flex justify-center"
+          className="mt-16 flex flex-col items-center"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
+          {clockTitle && (
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">{clockTitle}</h3>
+          )}
           {/* Stopwatch Body */}
           <div className="relative w-80 h-80 md:w-96 md:h-96">
             {/* Buttons */}
@@ -178,6 +178,11 @@ export default function Countdown({ data }: { data: CountdownData }) {
               )}
             </div>
           </div>
+          {description && (
+            <p className="mt-8 max-w-2xl text-lg text-gray-600 ml-4 text-left">
+              {description}
+            </p>
+          )}
         </motion.div>
 
         {/* Video Section */}
@@ -193,7 +198,7 @@ export default function Countdown({ data }: { data: CountdownData }) {
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900">{videoHeading}</h3>
             )}
             {videoDescription && (
-              <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600">{videoDescription}</p>
+              <p className="mt-4 max-w-2xl text-lg text-gray-600 ml-4 text-left">{videoDescription}</p>
             )}
             <div className="mt-8 aspect-video w-full max-w-3xl mx-auto overflow-hidden shadow-2xl border-4 border-gray-300">
               {/* @ts-ignore */}
