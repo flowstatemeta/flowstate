@@ -145,7 +145,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{page.heading}</h2>
             {page.description && <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">{page.description}</p>}
-            <div className="mt-6 sm:mt-8 space-y-6 max-w-md mx-auto">
+            <div className="mt-4 sm:mt-8 space-y-4 sm:space-y-6 max-w-md mx-auto">
               <input
                 type="text"
                 placeholder="Your Name"
@@ -161,7 +161,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{page.heading}</h2>
             {page.description && <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">{page.description}</p>}
-            <div className="mt-6 sm:mt-8 space-y-6 max-w-md mx-auto">
+            <div className="mt-4 sm:mt-8 space-y-4 sm:space-y-6 max-w-md mx-auto">
               <input
                 type="tel"
                 placeholder="Your Number"
@@ -177,7 +177,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{page.question}</h2>
             {page.description && <p className="mt-2 sm:mt-4 text-sm sm:text-base text-gray-600">{page.description}</p>}
-            <div className="mt-6 sm:mt-8 grid grid-cols-1 gap-3 sm:gap-4 max-w-md mx-auto">
+            <div className="mt-4 sm:mt-8 grid grid-cols-1 gap-2 sm:gap-4 max-w-md mx-auto">
               {page.options.map((option) => (
                 <button
                   key={option}
@@ -210,7 +210,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
   }
 
   return (
-    <section className="relative flex-grow flex flex-col items-center justify-start md:justify-center pt-28 pb-12 px-4 sm:py-12 sm:px-6 lg:px-8 overflow-x-hidden w-full">
+    <section className="relative flex-grow flex flex-col items-center justify-start md:justify-center pt-36 pb-24 px-4 sm:py-12 sm:px-6 lg:px-8 overflow-x-hidden w-full">
       <div className="w-full max-w-3xl">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
@@ -230,7 +230,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
         {error && <p className="text-center text-black font-semibold mt-4">{error}</p>}
 
         {/* Navigation Buttons */}
-        <div className="mt-8 sm:mt-12 flex justify-between items-center max-w-md mx-auto w-full">
+        <div className="mt-6 sm:mt-12 flex justify-between items-center max-w-md mx-auto w-full">
           {/* Back Button */}
           <button
             onClick={handleBack}
