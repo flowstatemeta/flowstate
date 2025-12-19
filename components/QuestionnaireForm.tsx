@@ -210,7 +210,7 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
   }
 
   return (
-    <section className="fixed inset-0 z-[100] bg-white overflow-y-auto">
+    <section className="fixed inset-0 z-[9999] bg-[#FFF8DC] overflow-y-auto overscroll-none">
       <div className="min-h-full flex flex-col items-center justify-center p-4 sm:p-8 w-full max-w-3xl mx-auto">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
