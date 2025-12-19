@@ -210,8 +210,8 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
   }
 
   return (
-    <section className="relative flex-grow flex flex-col items-center justify-start md:justify-center pt-36 pb-24 px-4 sm:py-12 sm:px-6 lg:px-8 overflow-x-hidden w-full">
-      <div className="w-full max-w-3xl">
+    <section className="fixed inset-0 z-[100] bg-white overflow-y-auto">
+      <div className="min-h-full flex flex-col items-center justify-center p-4 sm:p-8 w-full max-w-3xl mx-auto">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={currentPageIndex}
