@@ -114,8 +114,8 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
         localStorage.setItem('questionnaire_answers', JSON.stringify(answers));
         // Mark the questionnaire as completed so the user never sees it again.
         localStorage.setItem('questionnaire_completed', 'true')
-        // Set the individual countdown timer. Let's set it for 72 hours from now.
-        const countdownDuration = 72 * 60 * 60 * 1000 // 72 hours in milliseconds
+        // Set the individual countdown timer. Let's set it for 24 hours from now.
+        const countdownDuration = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
         const targetDate = new Date(Date.now() + countdownDuration)
         localStorage.setItem('countdown_target', targetDate.toISOString())
 

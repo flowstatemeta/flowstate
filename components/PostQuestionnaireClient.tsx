@@ -43,6 +43,7 @@ export default function PostQuestionnaireClient(
 
   const [individualTargetDate, setIndividualTargetDate] = useState<string | undefined>()
   const [isCopied, setIsCopied] = useState(false)
+  const [isExpired, setIsExpired] = useState(false)
 
   const handleCopy = useCallback(() => {
     if (copyableMessage) {
@@ -60,11 +61,17 @@ export default function PostQuestionnaireClient(
   useEffect(() => {
     // On component mount, get the user's individual countdown from localStorage.
     const storedTarget = localStorage.getItem('countdown_target')
-    if (storedTarget) {
-      setIndividualTargetDate(storedTarget)
-    } else {
-      // As a fallback, use the global date from Sanity if no individual timer is found.
-      setIndividualTargetDate(globalTargetDate)
+    const target = storedTarget || globalTargetDate
+
+    if (target) {
+      setIndividualTargetDate(target)
+
+      // Check if the video access has expired (36 hours after unlock)
+      const unlockTime = new Date(target).getTime()
+      const expirationTime = unlockTime + (36 * 60 * 60 * 1000) // 36 hours
+      if (Date.now() > expirationTime) {
+        setIsExpired(true)
+      }
     }
   }, [globalTargetDate])
 
@@ -81,12 +88,18 @@ export default function PostQuestionnaireClient(
           )}
 
           {/* Video Countdown Component */}
-          {individualTargetDate && videoLockedMessage && (
+          {individualTargetDate && videoLockedMessage && !isExpired && (
             <VideoCountdown
               targetDate={individualTargetDate}
               playbackId={video?.asset?.playbackId || null}
               lockedMessage={videoLockedMessage}
             />
+          )}
+
+          {isExpired && (
+            <div className="mt-10 p-6 bg-gray-100 rounded-lg border border-gray-300">
+              <p className="text-gray-600 font-medium">The viewing period for this video has expired.</p>
+            </div>
           )}
 
           {preCopyMessage && (
