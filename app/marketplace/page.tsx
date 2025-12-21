@@ -48,6 +48,14 @@ export default async function MarketplacePage() {
     sanityClient.fetch(footerQuery),
   ])
 
+  // Sort items so verified ones (Premium Seller or Manually Verified) appear first
+  const sortedItems = [...items].sort((a, b) => {
+    const aVerified = a.sellerIsVerified || a.isVerified
+    const bVerified = b.sellerIsVerified || b.isVerified
+    if (aVerified === bVerified) return 0
+    return aVerified ? -1 : 1
+  })
+
   return (
     <div className="flex flex-col min-h-screen" style={{backgroundColor: '#FFF8DC'}}>
       {navigationData && <TopNavigation data={navigationData} />}
@@ -56,9 +64,9 @@ export default async function MarketplacePage() {
           <h1 className="text-5xl font-extrabold text-gray-800 tracking-tight">Marketplace</h1>
           <p className="mt-2 text-lg text-gray-600">Discover items from the FlowState community</p>
         </header>
-        {items.length > 0 ? (
+        {sortedItems.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {items.map((item) => (
+            {sortedItems.map((item) => (
               <div
                 key={item._id}
                 className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col group transform hover:-translate-y-2 transition-all duration-300"
