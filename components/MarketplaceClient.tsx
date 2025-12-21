@@ -18,6 +18,7 @@ interface MarketplaceItem {
     }
   }
   isVerified?: boolean
+  sellerIsVerified?: boolean // Added to check the Seller's premium status
   sellerName: string
   sellerImage: any // Can be an image object or null
 }
@@ -42,7 +43,7 @@ export default function MarketplaceClient({items}: MarketplaceClientProps) {
               className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col group transform hover:-translate-y-2 transition-all duration-300"
             >
               <div className="relative h-56 w-full">
-                  {item.isVerified && (
+                  {(item.sellerIsVerified || item.isVerified) && (
                     <div className="absolute top-2 right-2 z-10 flex items-center bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
                       <CheckBadgeIcon className="w-4 h-4 mr-1" />
                       Verified

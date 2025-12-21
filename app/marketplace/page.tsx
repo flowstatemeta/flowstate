@@ -2,6 +2,7 @@ import {sanityClient} from '@/lib/sanity.server' // Assuming your client is here
 import {groq} from 'next-sanity'
 import Image from 'next/image'
 import {urlFor} from '@/lib/urlFor' // Corrected path based on project structure
+import {CheckBadgeIcon} from '@heroicons/react/24/solid'
 import TopNavigation from '@/components/TopNavigation'
 import Footer from '@/components/Footer'
 
@@ -17,19 +18,23 @@ interface MarketplaceItem {
       _type: 'reference'
     }
   }
+  isVerified?: boolean
+  sellerIsVerified?: boolean
   sellerName: string
   sellerImage: any // Can be an image object or null
 }
 
 // The GROQ query to fetch active marketplace items and seller info
-const marketplaceQuery = groq`*[_type == "marketplaceItem" && status == "active"] | order(_createdAt desc) {
+const marketplaceQuery = groq`*[_type == "marketplaceItem" && status == "active"] | order(seller->isPremium desc, _createdAt desc) {
   _id,
   title,
   price,
   description,
   "mainImage": images[0],
   "sellerName": seller->name,
-  "sellerImage": seller->image
+  "sellerImage": seller->image,
+  "sellerIsVerified": seller->isPremium,
+  isVerified
 }`
 const navigationQuery = groq`*[_type == "navigation"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`
@@ -59,6 +64,12 @@ export default async function MarketplacePage() {
                 className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col group transform hover:-translate-y-2 transition-all duration-300"
               >
                 <div className="relative h-56 w-full">
+                  {(item.sellerIsVerified || item.isVerified) && (
+                    <div className="absolute top-2 right-2 z-10 flex items-center bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                      <CheckBadgeIcon className="w-4 h-4 mr-1" />
+                      Verified
+                    </div>
+                  )}
                   <Image src={urlFor(item.mainImage).url()} alt={item.title} layout="fill" objectFit="cover" />
                 </div>
                 <div className="p-5 flex flex-col flex-grow">
