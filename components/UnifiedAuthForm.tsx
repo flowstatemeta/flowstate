@@ -318,7 +318,7 @@ export default function UnifiedAuthForm() {
         setLoginError('Invalid username or password.');
       } else if (result?.ok) {
         window.sessionStorage.setItem('isLoggedIn', 'true'); // Keep this for now to sync with other components
-        router.push('/educationHub');
+        router.push('/Education');
       }
     } else { // Handle Contact Form Submission
       setIsSubmitting(true);
