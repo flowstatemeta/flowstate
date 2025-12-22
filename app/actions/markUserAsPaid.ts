@@ -41,7 +41,7 @@ export async function markUserAsPaid(referralCode: string, userData: { name: str
 
     if (existingUser) {
       // Update existing user to premium
-      await client.patch(existingUser._id).set({ isPremium: true, ...userData }).commit()
+      await client.patch(existingUser._id).set({ isPremium: true, ...userData, registeredAt: new Date().toISOString() }).commit()
     } else {
       // Create new user if they skipped the questionnaire or used a different email
       const newUser = await client.create({
@@ -50,6 +50,7 @@ export async function markUserAsPaid(referralCode: string, userData: { name: str
         isPremium: true,
         questionnaireAnswers: questionnaireAnswers ? JSON.stringify(questionnaireAnswers) : undefined,
         createdAt: new Date().toISOString(),
+        registeredAt: new Date().toISOString(),
       })
       userId = newUser._id
     }

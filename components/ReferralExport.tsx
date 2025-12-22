@@ -24,14 +24,19 @@ export const ReferralExport = () => {
             name,
             email,
             phoneNumber,
-            questionnaireAnswers
+            questionnaireAnswers,
+            questionnaireCompletedAt,
+            createdAt,
+            _createdAt
           },
           "paid": paidUsers[]->{
             _id,
             name,
             email,
             phoneNumber,
-            questionnaireAnswers
+            questionnaireAnswers,
+            questionnaireCompletedAt,
+            registeredAt
           }
         },
         "questionnaire": *[_type == "questionnaire"][0]
@@ -105,10 +110,16 @@ export const ReferralExport = () => {
         return str
       }
 
+      // Helper to format dates
+      const formatDate = (dateStr: string) => {
+        if (!dateStr) return ''
+        return new Date(dateStr).toLocaleString()
+      }
+
       const rows = []
       
       // CSV Header
-      const headers = ['Status', 'Name', 'Phone', 'Email']
+      const headers = ['Status', 'Lead Date', 'Registered Date', 'Name', 'Phone', 'Email']
       sortedKeys.forEach(key => {
         headers.push(escapeCsv(questionTitleMap[key] || key))
       })
@@ -123,6 +134,8 @@ export const ReferralExport = () => {
 
         const row = [
           escapeCsv(user.status),
+          escapeCsv(formatDate(user.questionnaireCompletedAt || user.createdAt || user._createdAt)), // Fallback to system _createdAt
+          escapeCsv(formatDate(user.registeredAt)),
           escapeCsv(user.name || ''),
           escapeCsv(user.phoneNumber || ''),
           escapeCsv(user.email || '')

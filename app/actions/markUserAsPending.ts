@@ -65,6 +65,7 @@ export async function markUserAsPending(referralCode: string, answers: Record<st
       questionnaireAnswers: JSON.stringify(answers), // Save raw answers for the CSV export
       isPremium: false,
       createdAt: new Date().toISOString(),
+      questionnaireCompletedAt: new Date().toISOString(),
     }
 
     const createdUser = await client.create(newUser)
