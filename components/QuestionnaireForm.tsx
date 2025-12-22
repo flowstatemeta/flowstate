@@ -107,9 +107,16 @@ export default function QuestionnaireForm({ data }: { data: QuestionnaireData })
         return
       }
 
-      const result = await markUserAsPending(referralCode, answers)
+      // Find the name page to extract the name explicitly
+      const namePage = data.pages.find((p) => p._type === 'namePage')
+      const explicitName = namePage ? answers[namePage._key] : undefined
+
+      const result = await markUserAsPending(referralCode, answers, explicitName)
 
       if (result.success) {
+        if (result.userId) {
+          localStorage.setItem('pending_user_id', result.userId)
+        }
         // Save answers to localStorage to be picked up by the registration form
         localStorage.setItem('questionnaire_answers', JSON.stringify(answers));
         // Mark the questionnaire as completed so the user never sees it again.

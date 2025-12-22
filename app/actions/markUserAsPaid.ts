@@ -1,40 +1,85 @@
 'use server'
 
-import { sanityClient } from '@/lib/sanity.server'
-import { groq } from 'next-sanity'
+import { createClient } from 'next-sanity'
 
-export async function markUserAsPaid(userId: string, referralCode: string) {
-  if (!userId || !referralCode) {
-    return { success: false, error: 'Missing user ID or referral code.' }
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  apiVersion: '2024-01-01',
+  token: process.env.SANITY_API_WRITE_TOKEN || process.env.SANITY_API_TOKEN,
+  useCdn: false,
+})
+
+export async function markUserAsPaid(referralCode: string, userData: { name: string; email: string; phoneNumber?: string }, questionnaireAnswers?: any, pendingUserId?: string) {
+  if (!process.env.SANITY_API_WRITE_TOKEN && !process.env.SANITY_API_TOKEN) {
+    console.error('SANITY_API_WRITE_TOKEN is missing. Cannot perform write operations.')
+    return { success: false, error: 'Server configuration error: Missing API Token' }
   }
 
-  try {
-    // 1. Find the referral code document ID
-    const codeQuery = groq`*[_type == "referralCode" && code == $code][0]._id`
-    const referralCodeId = await sanityClient.fetch(codeQuery, { code: referralCode })
+  if (!referralCode) return { success: false, error: 'Referral code is required' }
 
-    if (!referralCodeId) {
-      // This case is unlikely if the user was pending, but it's good practice to check.
-      return { success: false, error: 'Referral code not found.' }
+  try {
+    // 1. Find the referral code document
+    const referral = await client.fetch(`*[_type == "referralCode" && code == $code][0]`, { code: referralCode })
+    
+    if (!referral) {
+      // If code is invalid, we might still want to register the user, just not link them.
+      // But for this logic, we return error or handle gracefully.
+      return { success: false, error: 'Invalid referral code' }
     }
 
-    // 2. Atomically move the user from 'pendingUsers' to 'paidUsers'
-    await sanityClient
-      .patch(referralCodeId)
-      // Ensure the paidUsers array exists
-      .setIfMissing({ paidUsers: [], pendingCount: 0, paidCount: 0 })
-      // Remove the user from the pending array
-      .unset([`pendingUsers[_ref=="${userId}"]`])
-      // Add the user to the paid array
-      .append('paidUsers', [{ _type: 'reference', _ref: userId }])
-      // Decrement pending and increment paid counts
-      .dec({ pendingCount: 1 })
+    // 2. Check if user already exists (by ID first, then email) to avoid duplicates.
+    let existingUser = null
+    if (pendingUserId) {
+      existingUser = await client.fetch(`*[_type == "user" && _id == $id][0]`, { id: pendingUserId })
+    }
+    if (!existingUser) {
+      existingUser = await client.fetch(`*[_type == "user" && email == $email][0]`, { email: userData.email })
+    }
+
+    let userId = existingUser?._id
+
+    if (existingUser) {
+      // Update existing user to premium
+      await client.patch(existingUser._id).set({ isPremium: true, ...userData }).commit()
+    } else {
+      // Create new user if they skipped the questionnaire or used a different email
+      const newUser = await client.create({
+        _type: 'user',
+        ...userData,
+        isPremium: true,
+        questionnaireAnswers: questionnaireAnswers ? JSON.stringify(questionnaireAnswers) : undefined,
+        createdAt: new Date().toISOString(),
+      })
+      userId = newUser._id
+    }
+
+    // Check if the user is currently in the pending list
+    const isPending = referral.pendingUsers?.some((ref: any) => ref._ref === userId)
+
+    // 3. Link User to the Referral Code's "paidUsers" list
+    let patch = client
+      .patch(referral._id)
+      .setIfMissing({ paidUsers: [], paidCount: 0 })
+      .append('paidUsers', [{ 
+        _type: 'reference', 
+        _ref: userId,
+        _key: Math.random().toString(36).substring(2, 15)
+      }])
       .inc({ paidCount: 1 })
-      .commit({ autoGenerateArrayKeys: true })
+
+    // If they were pending, remove them from pending list and decrement count
+    if (isPending) {
+      patch = patch
+        .unset([`pendingUsers[_ref == "${userId}"]`])
+        .dec({ pendingCount: 1 })
+    }
+
+    await patch.commit({ autoGenerateArrayKeys: true })
 
     return { success: true }
   } catch (error) {
-    console.error('Error marking user as paid:', error)
-    return { success: false, error: 'An unexpected error occurred while updating referral status.' }
+    console.error('Error in markUserAsPaid:', error)
+    return { success: false, error: 'Failed to register paid user' }
   }
 }

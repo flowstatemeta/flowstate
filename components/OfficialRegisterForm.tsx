@@ -127,8 +127,22 @@ export default function OfficialRegisterForm(
     if (result && result.success) {
       // Now, mark the user as paid for referral tracking using the newly created user ID
       const referralCode = localStorage.getItem('referral_code');
-      if (result.userId && referralCode) {
-        await markUserAsPaid(result.userId, referralCode);
+      const pendingUserId = localStorage.getItem('pending_user_id');
+      if (referralCode) {
+        await markUserAsPaid(
+          referralCode,
+          {
+            name: formData.name,
+            email: formData.email,
+            phoneNumber: formData.number,
+          },
+          questionnaireAnswers,
+          pendingUserId || undefined
+        );
+        // Clear referral data
+        localStorage.removeItem('referral_code');
+        localStorage.removeItem('questionnaire_answers');
+        localStorage.removeItem('pending_user_id');
       }
 
       setSuccessMessage(result.message || 'Registration successful! Redirecting...');
