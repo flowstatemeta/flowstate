@@ -2,7 +2,7 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {muxInput} from 'sanity-plugin-mux-input'
 import {schemaTypes} from './schemaTypes'
-import {ExportReferralAction} from './.sanity/actions/ExportReferralAction.js'
+import {ExportReferralAction} from './.sanity/actions/ExportReferralAction'
 
 export default defineConfig({
   name: 'default',
