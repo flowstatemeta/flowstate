@@ -17,6 +17,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@sanity/cli": "^4.14.2",
+    "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^3.99.0",
     "@tailwindcss/postcss": "^4.1.17",
@@ -30,8 +31,8 @@
     "next-auth": "^4.24.13",
     "next-sanity": "^10.1.4",
     "next-themes": "^0.2.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "sanity": "^4.12.0",
     "sanity-plugin-mux-input": "^2.11.1",
     "styled-components": "^6.1.18",
