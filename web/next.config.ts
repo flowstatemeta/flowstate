@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // @ts-expect-error - eslint is missing from NextConfig type
+  // @ts-ignore
   eslint: {
     ignoreDuringBuilds: true,
   },
