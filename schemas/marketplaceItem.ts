@@ -34,7 +34,6 @@ export default defineType({
       title: 'Seller',
       type: 'reference',
       to: {type: 'user'},
-      readOnly: true, // This will be set automatically by the backend API
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -46,6 +45,14 @@ export default defineType({
         layout: 'radio',
       },
       initialValue: 'active',
+    }),
+    defineField({
+      name: 'isVerified',
+      title: 'Verified Post',
+      type: 'boolean',
+      description: 'DEPRECATED: Verification is now derived directly from the Seller\'s premium status.',
+      initialValue: false,
+      readOnly: true, // Lock this so it is not manually set incorrectly
     }),
   ],
   preview: {

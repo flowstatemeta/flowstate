@@ -24,6 +24,7 @@ import communityPage from './schemas/communityPage'
 import sponsors from './schemas/sponsors'
 import contactMessage from './schemas/contactMessage'
 import marketplaceItem from './schemas/marketplaceItem'
+import vault from './schemas/vault'
 
 
 
@@ -60,5 +61,6 @@ export const schemaTypes = [
   communityPage,
   sponsors,
   contactMessage,
-  marketplaceItem
+  marketplaceItem,
+  vault
 ]

@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {ReferralExport} from '../web/components/ReferralExport'
 
 export default defineType({
   name: 'referralCode',
@@ -57,6 +58,15 @@ export default defineType({
       of: [{type: 'reference', to: {type: 'user'}}],
       readOnly: true,
       description: 'Users who have successfully enrolled and become paid customers.',
+    }),
+    defineField({
+      name: 'exportData',
+      title: 'Export Data',
+      type: 'string',
+      readOnly: true,
+      components: {
+        input: ReferralExport,
+      },
     }),
   ],
   preview: {

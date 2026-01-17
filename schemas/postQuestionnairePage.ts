@@ -36,6 +36,12 @@ export default defineType({
       type: 'text',
     }),
     defineField({
+      name: 'preCopyMessage',
+      title: 'Pre-Copy Message',
+      type: 'text',
+      description: 'Text displayed directly above the copyable message box.',
+    }),
+    defineField({
       name: 'copyableMessage',
       title: 'Copyable Message',
       type: 'text',

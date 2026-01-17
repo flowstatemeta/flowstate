@@ -19,6 +19,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'clockTitle',
+      title: 'Clock Title',
+      type: 'string',
+      description: 'Title displayed directly above the countdown clock.',
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
