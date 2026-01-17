@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import {ReferralExport} from '../web/components/ReferralExport'
+import {ReferralExport} from './components/ReferralExport'
 
 export default defineType({
   name: 'referralCode',
