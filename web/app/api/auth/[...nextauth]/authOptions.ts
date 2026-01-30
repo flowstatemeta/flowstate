@@ -1,8 +1,9 @@
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { client } from '../../../../sanity.client' // Adjust path as needed
+import { sanityClient } from '@/lib/sanity.server'
 import { groq } from 'next-sanity'
 import bcrypt from 'bcryptjs'
+import { rotateUserSession, validateUserSession } from '@/app/actions/sessionHelpers'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,7 +18,7 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
-        const userProfile = await client.fetch(
+        const userProfile = await sanityClient.fetch(
           groq`*[_type == "user" && username == $username][0]{..., "hashedPassword": hashedPassword}`,
           { username: credentials.username }
         )
@@ -29,10 +30,13 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (isPasswordValid) {
+            // Rotate session token on successful login
+            const sessionToken = await rotateUserSession(userProfile._id)
             return {
               id: userProfile._id,
               name: userProfile.name,
               username: userProfile.username,
+              sessionToken,
             }
           }
         }
@@ -45,10 +49,19 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id
         token.username = user.username
+        token.sessionToken = (user as any).sessionToken
       }
       return token
     },
     async session({ session, token }) {
+      // Validate session token to ensure single device login
+      if (token && token.id && token.sessionToken) {
+        const isValid = await validateUserSession(token.id as string, token.sessionToken as string)
+        if (!isValid) {
+          return null as any // Force sign out if session is invalid
+        }
+      }
+
       if (token) {
         session.user.id = token.id as string
         session.user.username = token.username as string

@@ -1,0 +1,15 @@
+{
+  "/Education/page": "app/Education/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/community/page": "app/community/page.js",
+  "/home/page": "app/home/page.js",
+  "/join/page": "app/join/page.js",
+  "/offregester/page": "app/offregester/page.js",
+  "/page": "app/page.js",
+  "/post-questionnaire/page": "app/post-questionnaire/page.js",
+  "/privatehome/page": "app/privatehome/page.js",
+  "/questionnaire/page": "app/questionnaire/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/vault/page": "app/vault/page.js"
+}

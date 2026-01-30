@@ -1,0 +1,65 @@
+{
+  "node": {
+    "4035eb581071a67c6191a5a2a65c775c0109d3ff5f": {
+      "workers": {
+        "app/offregester/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/offregester/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/validateUsername.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/web/app/actions/registerUser.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE3 => \"[project]/web/app/actions/markUserAsPaid.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "validateEmail",
+          "filename": "web/app/actions/validateEmail.ts"
+        }
+      },
+      "layer": {
+        "app/offregester/page": "action-browser"
+      },
+      "exportedName": "validateEmail",
+      "filename": "web/app/actions/validateEmail.ts"
+    },
+    "40ccf7069698c7e8c16b701407cadec5e999f94ba7": {
+      "workers": {
+        "app/offregester/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/offregester/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/validateUsername.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/web/app/actions/registerUser.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE3 => \"[project]/web/app/actions/markUserAsPaid.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "validateUsername",
+          "filename": "web/app/actions/validateUsername.ts"
+        }
+      },
+      "layer": {
+        "app/offregester/page": "action-browser"
+      },
+      "exportedName": "validateUsername",
+      "filename": "web/app/actions/validateUsername.ts"
+    },
+    "409be50323aacaad76ff9d89c326937530b1d9d948": {
+      "workers": {
+        "app/offregester/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/offregester/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/validateUsername.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/web/app/actions/registerUser.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE3 => \"[project]/web/app/actions/markUserAsPaid.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "registerUser",
+          "filename": "web/app/actions/registerUser.ts"
+        }
+      },
+      "layer": {
+        "app/offregester/page": "action-browser"
+      },
+      "exportedName": "registerUser",
+      "filename": "web/app/actions/registerUser.ts"
+    },
+    "7811a613549a81877dc0a9842b7f44fc269c2456bd": {
+      "workers": {
+        "app/offregester/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/offregester/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/validateUsername.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/web/app/actions/registerUser.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE3 => \"[project]/web/app/actions/markUserAsPaid.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "markUserAsPaid",
+          "filename": "web/app/actions/markUserAsPaid.ts"
+        }
+      },
+      "layer": {
+        "app/offregester/page": "action-browser"
+      },
+      "exportedName": "markUserAsPaid",
+      "filename": "web/app/actions/markUserAsPaid.ts"
+    }
+  },
+  "edge": {}
+}

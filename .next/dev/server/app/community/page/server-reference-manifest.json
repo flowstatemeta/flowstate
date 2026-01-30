@@ -1,0 +1,35 @@
+{
+  "node": {
+    "00c6fbeaf3dc8f202134d800b521ab27b70111c986": {
+      "workers": {
+        "app/community/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/community/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/community/page.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/submitComment.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "web/app/community/page.tsx"
+        }
+      },
+      "layer": {
+        "app/community/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "web/app/community/page.tsx"
+    },
+    "4000a095c0c8e96b0a4b9ec977ab3055c5ef989083": {
+      "workers": {
+        "app/community/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/community/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/community/page.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/submitComment.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitComment",
+          "filename": "web/app/actions/submitComment.ts"
+        }
+      },
+      "layer": {
+        "app/community/page": "action-browser"
+      },
+      "exportedName": "submitComment",
+      "filename": "web/app/actions/submitComment.ts"
+    }
+  },
+  "edge": {}
+}

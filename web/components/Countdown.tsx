@@ -227,7 +227,7 @@ export default function Countdown({ data }: { data: CountdownData }) {
                 placeholder={referralInputPlaceholder || 'Enter your code...'}
                 rows={1}
                 value={referralCodeInput}
-                onChange={(e) => setReferralCodeInput(e.target.value)}
+                onChange={(e) => setReferralCodeInput(e.target.value.replace(/\s/g, ''))}
                 className="w-full flex-grow resize-none rounded-lg border-gray-300 py-3 px-4 shadow-sm focus:border-gray-500 focus:ring-gray-500 text-black placeholder-gray-500 text-center"
               />
               <motion.button

@@ -2,7 +2,8 @@ import { client } from '@/sanity.client'
 import { groq } from 'next-sanity'
 import TopNavigation from '@/components/TopNavigation'
 import Footer from '@/components/Footer'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
 import { revalidatePath } from 'next/cache'
 import CommunityClient from '@/components/CommunityClient'
 
@@ -47,6 +48,11 @@ const navigationQuery = groq`*[_type == "navigation"][0]`
 const footerQuery = groq`*[_type == "footer"][0]`
 
 export default async function CommunityPage() {
+  const session = await getServerSession()
+  if (!session) {
+    redirect('/')
+  }
+
   const [pageData, comments, navigationData, footerData] = await Promise.all([
     client.fetch<CommunityPageData>(communityPageQuery),
     client.fetch<CommunityComment[]>(allCommentsQuery),

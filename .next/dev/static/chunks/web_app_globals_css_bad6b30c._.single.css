@@ -1,0 +1,13 @@
+/* [project]/web/app/globals.css [app-client] (css) */
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+/*# sourceMappingURL=web_app_globals_css_bad6b30c._.single.css.map*/

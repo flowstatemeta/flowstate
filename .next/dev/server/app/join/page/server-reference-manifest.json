@@ -1,0 +1,35 @@
+{
+  "node": {
+    "4035eb581071a67c6191a5a2a65c775c0109d3ff5f": {
+      "workers": {
+        "app/join/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/join/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/submitContactForm.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "validateEmail",
+          "filename": "web/app/actions/validateEmail.ts"
+        }
+      },
+      "layer": {
+        "app/join/page": "action-browser"
+      },
+      "exportedName": "validateEmail",
+      "filename": "web/app/actions/validateEmail.ts"
+    },
+    "409a181d46832a1c8d84705b73bb11b875d94f7d96": {
+      "workers": {
+        "app/join/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/join/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/submitContactForm.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitContactForm",
+          "filename": "web/app/actions/submitContactForm.ts"
+        }
+      },
+      "layer": {
+        "app/join/page": "action-browser"
+      },
+      "exportedName": "submitContactForm",
+      "filename": "web/app/actions/submitContactForm.ts"
+    }
+  },
+  "edge": {}
+}

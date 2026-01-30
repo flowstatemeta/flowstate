@@ -34,6 +34,13 @@ export default defineType({
       readOnly: true,
     }),
     defineField({
+      name: 'sessionToken',
+      title: 'Session Token',
+      type: 'string',
+      description: 'Security token to enforce single-device login sessions.',
+      readOnly: true,
+    }),
+    defineField({
       name: 'image',
       title: 'Image',
       type: 'image',

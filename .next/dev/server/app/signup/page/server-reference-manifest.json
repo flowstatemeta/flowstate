@@ -1,0 +1,20 @@
+{
+  "node": {
+    "40c6860dbbbf4b65f64f452276dd2e1f6a5358fdbc": {
+      "workers": {
+        "app/signup/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/signup/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateReferral.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "validateReferral",
+          "filename": "web/app/actions/validateReferral.ts"
+        }
+      },
+      "layer": {
+        "app/signup/page": "action-browser"
+      },
+      "exportedName": "validateReferral",
+      "filename": "web/app/actions/validateReferral.ts"
+    }
+  },
+  "edge": {}
+}

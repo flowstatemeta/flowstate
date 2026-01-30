@@ -1,0 +1,148 @@
+{
+  "node": {
+    "4035eb581071a67c6191a5a2a65c775c0109d3ff5f": {
+      "workers": {
+        "app/join/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/join/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/submitContactForm.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "validateEmail",
+          "filename": "web/app/actions/validateEmail.ts"
+        },
+        "app/offregester/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/offregester/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/validateUsername.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/web/app/actions/registerUser.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE3 => \"[project]/web/app/actions/markUserAsPaid.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "validateEmail",
+          "filename": "web/app/actions/validateEmail.ts"
+        }
+      },
+      "layer": {
+        "app/join/page": "action-browser",
+        "app/offregester/page": "action-browser"
+      },
+      "filename": "web/app/actions/validateEmail.ts",
+      "exportedName": "validateEmail"
+    },
+    "409a181d46832a1c8d84705b73bb11b875d94f7d96": {
+      "workers": {
+        "app/join/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/join/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/submitContactForm.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitContactForm",
+          "filename": "web/app/actions/submitContactForm.ts"
+        }
+      },
+      "layer": {
+        "app/join/page": "action-browser"
+      },
+      "filename": "web/app/actions/submitContactForm.ts",
+      "exportedName": "submitContactForm"
+    },
+    "00c6fbeaf3dc8f202134d800b521ab27b70111c986": {
+      "workers": {
+        "app/community/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/community/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/community/page.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/submitComment.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "web/app/community/page.tsx"
+        }
+      },
+      "layer": {
+        "app/community/page": "rsc"
+      },
+      "filename": "web/app/community/page.tsx",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    },
+    "4000a095c0c8e96b0a4b9ec977ab3055c5ef989083": {
+      "workers": {
+        "app/community/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/community/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/community/page.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/submitComment.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitComment",
+          "filename": "web/app/actions/submitComment.ts"
+        }
+      },
+      "layer": {
+        "app/community/page": "action-browser"
+      },
+      "filename": "web/app/actions/submitComment.ts",
+      "exportedName": "submitComment"
+    },
+    "40ccf7069698c7e8c16b701407cadec5e999f94ba7": {
+      "workers": {
+        "app/offregester/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/offregester/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/validateUsername.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/web/app/actions/registerUser.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE3 => \"[project]/web/app/actions/markUserAsPaid.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "validateUsername",
+          "filename": "web/app/actions/validateUsername.ts"
+        }
+      },
+      "layer": {
+        "app/offregester/page": "action-browser"
+      },
+      "filename": "web/app/actions/validateUsername.ts",
+      "exportedName": "validateUsername"
+    },
+    "409be50323aacaad76ff9d89c326937530b1d9d948": {
+      "workers": {
+        "app/offregester/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/offregester/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/validateUsername.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/web/app/actions/registerUser.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE3 => \"[project]/web/app/actions/markUserAsPaid.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "registerUser",
+          "filename": "web/app/actions/registerUser.ts"
+        }
+      },
+      "layer": {
+        "app/offregester/page": "action-browser"
+      },
+      "filename": "web/app/actions/registerUser.ts",
+      "exportedName": "registerUser"
+    },
+    "7811a613549a81877dc0a9842b7f44fc269c2456bd": {
+      "workers": {
+        "app/offregester/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/offregester/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateEmail.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/web/app/actions/validateUsername.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/web/app/actions/registerUser.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE3 => \"[project]/web/app/actions/markUserAsPaid.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "markUserAsPaid",
+          "filename": "web/app/actions/markUserAsPaid.ts"
+        }
+      },
+      "layer": {
+        "app/offregester/page": "action-browser"
+      },
+      "filename": "web/app/actions/markUserAsPaid.ts",
+      "exportedName": "markUserAsPaid"
+    },
+    "40c6860dbbbf4b65f64f452276dd2e1f6a5358fdbc": {
+      "workers": {
+        "app/signup/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/signup/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/validateReferral.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "validateReferral",
+          "filename": "web/app/actions/validateReferral.ts"
+        }
+      },
+      "layer": {
+        "app/signup/page": "action-browser"
+      },
+      "filename": "web/app/actions/validateReferral.ts",
+      "exportedName": "validateReferral"
+    },
+    "7015cbf86f85b7e801dd4fe3e7b779cbcf48ac014b": {
+      "workers": {
+        "app/questionnaire/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/questionnaire/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/markUserAsPending.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "markUserAsPending",
+          "filename": "web/app/actions/markUserAsPending.ts"
+        }
+      },
+      "layer": {
+        "app/questionnaire/page": "action-browser"
+      },
+      "filename": "web/app/actions/markUserAsPending.ts",
+      "exportedName": "markUserAsPending"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "GSohM00EQd2NGCLdTQzOXWKHRe9UpYRkcvybA+1FE1o="
+}

@@ -168,6 +168,7 @@ export default function UnifiedAuthForm() {
   // State for form inputs
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
@@ -406,7 +407,16 @@ export default function UnifiedAuthForm() {
                 >
                   <UserIcon className="h-5 w-5 text-gray-400" />
                 </motion.div>
-                <input type="text" placeholder="Username" className={`${inputClass} pl-10`} value={username} onChange={(e) => setUsername(e.target.value)} required />
+                <input 
+                  type="text" 
+                  placeholder="Username" 
+                  className={`${inputClass} pl-10`} 
+                  value={username} 
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }} 
+                  required 
+                />
               </div>
             </motion.div>
           )}
@@ -438,7 +448,26 @@ export default function UnifiedAuthForm() {
                 >
                   <KeyIcon className="h-5 w-5 text-gray-400" />
                 </motion.div>
-                <input type="password" placeholder="Password" className={`${inputClass} pl-10`} value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  className={`${inputClass} pl-10`}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="flex items-center mt-3 ml-1">
+                <input
+                  id="show-password-checkbox"
+                  type="checkbox"
+                  checked={showPassword}
+                  onChange={() => setShowPassword(!showPassword)}
+                  className="w-4 h-4 rounded border-gray-600 bg-gray-700 focus:ring-offset-gray-800 cursor-pointer accent-gray-500"
+                />
+                <label htmlFor="show-password-checkbox" className="ml-2 text-sm font-medium text-gray-300 cursor-pointer select-none" onClick={() => setShowPassword(!showPassword)}>
+                  Show Password
+                </label>
               </div>
             </motion.div>
           )}

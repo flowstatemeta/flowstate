@@ -1,0 +1,26 @@
+/* [project]/web/components/WhyChooseUs.module.css [app-client] (css) */
+.WhyChooseUs-module__mnUuKa__donationCard {
+  text-align: center;
+  background-color: #fff8dc;
+  border-radius: 1.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+}
+
+.WhyChooseUs-module__mnUuKa__starIcon {
+  color: #f59e0b;
+  z-index: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*# sourceMappingURL=web_components_WhyChooseUs_module_b022f92d.css.map*/

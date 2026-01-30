@@ -1,0 +1,20 @@
+{
+  "node": {
+    "7015cbf86f85b7e801dd4fe3e7b779cbcf48ac014b": {
+      "workers": {
+        "app/questionnaire/page": {
+          "moduleId": "[project]/web/.next-internal/server/app/questionnaire/page/actions.js { ACTIONS_MODULE0 => \"[project]/web/app/actions/markUserAsPending.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "markUserAsPending",
+          "filename": "web/app/actions/markUserAsPending.ts"
+        }
+      },
+      "layer": {
+        "app/questionnaire/page": "action-browser"
+      },
+      "exportedName": "markUserAsPending",
+      "filename": "web/app/actions/markUserAsPending.ts"
+    }
+  },
+  "edge": {}
+}
